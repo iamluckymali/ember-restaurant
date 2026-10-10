@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme{
+    --color-orange: #bb4d00;
+    --color-primary: #103c32;
+    --color-secondary: #f7f1e5;
+    --font-playfair: "Playfair";
+    --font-poppins: "Poppins";
+    --font-quicksand: "Quicksand";
+    --color-icon: #efeade;
+    --color-ink: #334155;
+    --color-lightwhite: #d1cfc9;
+    --color-greenborder: #2d7a2d;
+    --color-whiteborder: #dad6c7;
+    
+}

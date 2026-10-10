@@ -1,0 +1,19 @@
+{
+  "name": "ember-restaurant",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "w": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/output.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "tailwindcss": "^4.3.3"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.3.3"
+  }
+}
