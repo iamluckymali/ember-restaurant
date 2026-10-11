@@ -5,15 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ember | Restaurant & Food Ordering</title>
+    <meta name="description"
+        content="Discover EMBER, your destination for restaurant-quality meals, freshly prepared dishes, delicious food, and a premium dining experience delivered to your door.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link href="./dist/output.css" rel="stylesheet" />
     <style>
         .container {
@@ -42,199 +44,437 @@
             background-color: #bb4d00;
             border-radius: 5px;
         }
+
+        .leaflet-control-attribution {
+            font-size: 7px;
+            opacity: 0.5;
+        }
     </style>
 </head>
 
 <body class="bg-secondary font-playfair">
-    <header class="p-3 border-b-2 border-orange flex flex-row items-center">
-        <div class="flex flex-row justify-between items-center w-full">
-            <div class="w-1/4 flex flex-row items-center">
-                <div
-                    class="logo h-10 px-4 py-2 w-10 flex justify-center flex-row items-center rounded-full border border-orange">
-                    <i class="fa-solid fa-utensils text-orange"></i>
+    <header
+        class="p-3 border-b-2 border-orange flex flex-row items-center sticky bg-secondary top-0 left-0 z-50 shadow-lg">
+        <div class="container">
+            <div class="flex flex-row justify-between items-center w-full md:grid md:grid-cols-3">
+                <div class="w-1/4 flex flex-row items-center">
+                    <div
+                        class="logo h-10 px-4 py-2 w-10 flex justify-center flex-row items-center rounded-full border border-orange">
+                        <i class="fa-solid fa-utensils text-orange"></i>
+                    </div>
+                    <span class="text-3xl ml-2 text-primary font-medium">EMBER</span>
+
                 </div>
-                <span class="text-3xl ml-2 text-primary font-medium">EMBER</span>
+                <!-- Desktop Navs -->
+                <nav class="md:flex hidden flex-row justify-center gap-8 mx-auto">
+                    <a href="#home" class="hover:text-black relative cursor-pointer text-2xl group"
+                        style="font-variant: small-caps;">home<span
+                            class="absolute left-0 bottom-0 h-0.5 w-0 group-hover:w-full bg-orange rounded-full transition-all duration-500"></span></a>
 
-            </div>
-            <nav class="md:flex hidden flex-row justify-between gap-8 mx-auto">
-                <a href="#home" class="hover:text-black relative cursor-pointer text-2xl group"
-                    style="font-variant: small-caps;">home<span
-                        class="absolute left-0 bottom-0 h-0.5 w-0 group-hover:w-full bg-orange rounded-full transition-all duration-500"></span></a>
+                    <a href="#featuredDishes" class="hover:text-black relative cursor-pointer text-2xl group"
+                        style="font-variant: small-caps;">menu<span
+                            class="absolute left-0 bottom-0 h-0.5 w-0 group-hover:w-full bg-orange rounded-full transition-all duration-500"></span></a>
+                    <a href="#about" class="hover:text-black relative cursor-pointer text-2xl group"
+                        style="font-variant: small-caps;">about<span
+                            class="absolute left-0 bottom-0 h-0.5 w-0 group-hover:w-full bg-orange rounded-full transition-all duration-500"></span></a>
+                    <a href="#location" class="hover:text-black relative cursor-pointer text-2xl group"
+                        style="font-variant: small-caps;">locations<span
+                            class="absolute left-0 bottom-0 h-0.5 w-0 group-hover:w-full bg-orange rounded-full transition-all duration-500"></span></a>
+                    <a href="#faq" class="hover:text-black relative cursor-pointer text-2xl group"
+                        style="font-variant: small-caps;">faq<span
+                            class="absolute left-0 bottom-0 h-0.5 w-0 group-hover:w-full bg-orange rounded-full transition-all duration-500"></span></a>
+                </nav>
 
-                <a href="#menu" class="hover:text-black relative cursor-pointer text-2xl group"
-                    style="font-variant: small-caps;">menu<span
-                        class="absolute left-0 bottom-0 h-0.5 w-0 group-hover:w-full bg-orange rounded-full transition-all duration-500"></span></a>
-                <a href="#about" class="hover:text-black relative cursor-pointer text-2xl group"
-                    style="font-variant: small-caps;">about<span
-                        class="absolute left-0 bottom-0 h-0.5 w-0 group-hover:w-full bg-orange rounded-full transition-all duration-500"></span></a>
-                <a href="#location" class="hover:text-black relative cursor-pointer text-2xl group"
-                    style="font-variant: small-caps;">locations<span
-                        class="absolute left-0 bottom-0 h-0.5 w-0 group-hover:w-full bg-orange rounded-full transition-all duration-500"></span></a>
-                <a href="#faq" class="hover:text-black relative cursor-pointer text-2xl group"
-                    style="font-variant: small-caps;">faq<span
-                        class="absolute left-0 bottom-0 h-0.5 w-0 group-hover:w-full bg-orange rounded-full transition-all duration-500"></span></a>
-            </nav>
-            <div class="icons flex items-center justify-end gap-3 w-1/3">
-                <!-- <input type="text" id="search" class="rounded-full border border-orange px-5 py-0.5 focus:outline-none"> -->
-                <i
-                    class="fa-brands fa-sistrix ml-2 cursor-pointer rounded-full px-3 py-3 bg-icon border border-whiteborder text-slate-900"></i>
-                <i
-                    class="fa-solid fa-shopping-bag cursor-pointer rounded-full px-3 py-3 bg-icon border border-whiteborder text-slate-900"></i>
-                <button id="orderBtn"
-                    class="bg-orange h-10 w-20 px-4 py-2 text-white rounded-full font-poppins text-sm cursor-pointer active:bg-orange-800 ml-0 md:ml-3 font-medium">Order</button>
+                <div class="icons flex items-center justify-end gap-3">
+                    <!-- <input type="text" id="search" class="rounded-full border border-orange px-5 py-0.5 focus:outline-none"> -->
+                    <i
+                        class="fa-brands fa-sistrix ml-2 cursor-pointer rounded-full px-3 py-3 bg-icon border border-whiteborder text-slate-900"></i>
+                    <i
+                        class="fa-solid fa-shopping-bag cursor-pointer rounded-full px-3 py-3 bg-icon border border-whiteborder text-slate-900"></i>
+
+                    <!-- Mobile Navs -->
+                    <!-- Bars Icon -->
+                    <div id="barBtn" class="md:hidden flex items-center">
+                        <i class="fa-solid fa-bars text-xl px-1 cursor-pointer text-slate-900"></i>
+                    </div>
+                    <div id="overlay" class="fixed inset-0 bg-black/40 hidden z-40 transition-opacity"></div>
+                    <nav id="mobilemenu"
+                        class="fixed top-0 right-0 h-full w-44 bg-secondary shadow-2xl z-50 flex flex-col justify-start pt-16 px-6 gap-6 transform translate-x-full transition-transform duration-500 ease-in-out md:hidden">
+                        <button id="closebtn" class="absolute top-4 right-6 text-5xl">&times;</button>
+                        <a href="#home" class="hover:text-black relative cursor-pointer text-2xl group"
+                            style="font-variant: small-caps;">home<span
+                                class="absolute left-0 bottom-0 h-0.5 w-0 group-hover:w-full bg-orange rounded-full transition-all duration-500"></span></a>
+
+                        <a href="#featuredDishes" class="hover:text-black relative cursor-pointer text-2xl group"
+                            style="font-variant: small-caps;">menu<span
+                                class="absolute left-0 bottom-0 h-0.5 w-0 group-hover:w-full bg-orange rounded-full transition-all duration-500"></span></a>
+                        <a href="#about" class="hover:text-black relative cursor-pointer text-2xl group"
+                            style="font-variant: small-caps;">about<span
+                                class="absolute left-0 bottom-0 h-0.5 w-0 group-hover:w-full bg-orange rounded-full transition-all duration-500"></span></a>
+                        <a href="#location" class="hover:text-black relative cursor-pointer text-2xl group"
+                            style="font-variant: small-caps;">locations<span
+                                class="absolute left-0 bottom-0 h-0.5 w-0 group-hover:w-full bg-orange rounded-full transition-all duration-500"></span></a>
+                        <a href="#faq" class="hover:text-black relative cursor-pointer text-2xl group"
+                            style="font-variant: small-caps;">faq<span
+                                class="absolute left-0 bottom-0 h-0.5 w-0 group-hover:w-full bg-orange rounded-full transition-all duration-500"></span></a>
+                    </nav>
+                </div>
             </div>
         </div>
     </header>
-    <section id="home">
-        <div class="container">
-            <div class="flex lg:flex-row flex-col justify-between gap-12">
-                <!-- Left Side Part -->
-                <div class="leftSide flex flex-col max-w-140">
+    <main>
+        <section id="home">
+            <div class="container">
+                <div class="flex lg:flex-row flex-col justify-between gap-12">
+                    <!-- Left Side Part -->
+                    <div class="leftSide flex flex-col md:max-w-140 w-full">
 
-                    <span class="text-orange font-poppins font-semibold ml-1" style="font-variant: small-caps;">cloud
-                        kitchen
-                        est <span class="text-xs">2019</span></span>
-                    <span class="text-slate-950 text-6xl font-bold leading-13">Restaurant-grade meals, sent straight
-                        from our kitchens.</span>
-                    <p class="text-ink font-poppins mt-2">No dining room, no compromise. Every dish is cooked to order
-                        in a dedicated cloud kitchen and delivered while it's still hot usually in thirty-two minutes.
-                    </p>
-                    <!-- Buttons -->
-                    <div class="flex flex-row gap-3 mt-8">
+                        <span class="text-orange font-poppins font-semibold ml-1"
+                            style="font-variant: small-caps;">cloud
+                            kitchen
+                            est <span class="text-xs">2019</span></span>
+                        <span class="text-slate-950 text-6xl font-bold leading-13">Restaurant-grade meals, sent straight
+                            from our kitchens.</span>
+                        <p class="text-ink font-poppins mt-2">No dining room, no compromise. Every dish is cooked to
+                            order
+                            in a dedicated cloud kitchen and delivered while it's still hot usually in thirty-two
+                            minutes.
+                        </p>
+                        <!-- Buttons -->
+                        <div class="flex flex-row gap-3 mt-8">
 
-                        <button
-                            class="bg-orange active:bg-amber-800 h-12 w-36 text-white font-poppins text-sm font-medium rounded-full cursor-pointer">Order
-                            Now</button>
-                        <button
-                            class="border border-black hover:bg-icon active:bg-[#ded9ce] h-12 w-36 font-poppins text-sm font-medium rounded-full cursor-pointer">View
-                            Menu</button>
+                            <a href="#sellers"
+                                class="bg-orange active:bg-amber-800 flex justify-center items-center h-12 w-36 text-white font-poppins text-sm font-medium rounded-full cursor-pointer">Order
+                                Now</a>
+                            <a href="#featuredDishes"
+                                class="border border-black hover:bg-icon active:bg-[#ded9ce] flex justify-center items-center h-12 w-36 font-poppins text-sm font-medium rounded-full cursor-pointer">View
+                                Menu</a>
+                        </div>
+                        <div class="flex flex-row gap-7.5 mt-10">
+                            <div class="flex flex-col">
+                                <span class="text-primary text-3xl font-semibold font-poppins">06</span>
+                                <span class="text-ink font-poppins text-sm font-light">Kitchms Citywise</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-primary text-3xl font-semibold font-poppins">32m</span>
+                                <span class="text-ink font-poppins text-sm font-light">Average Delivery</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-primary text-3xl font-semibold font-poppins">180+</span>
+                                <span class="text-ink font-poppins text-sm font-light">Dishes on Rotation</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-primary text-3xl font-semibold font-poppins">4.9</span>
+                                <span class="text-ink font-poppins text-sm font-light">Average Rating</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex flex-row gap-7.5 mt-10">
-                        <div class="flex flex-col">
-                            <span class="text-primary text-3xl font-semibold font-poppins">06</span>
-                            <span class="text-ink font-poppins text-sm font-light">Kitchms Citywise</span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-primary text-3xl font-semibold font-poppins">32 min</span>
-                            <span class="text-ink font-poppins text-sm font-light">Average Delivery</span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-primary text-3xl font-semibold font-poppins">180+</span>
-                            <span class="text-ink font-poppins text-sm font-light">Dishes on Rotation</span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-primary text-3xl font-semibold font-poppins">4.9</span>
-                            <span class="text-ink font-poppins text-sm font-light">Average Rating</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Right Side Part -->
-                <div class="rightSide flex flex-col ">
-                    <img src="assets/pizza.webp"
-                        alt="pizza" class="rounded-2xl object-cover h-90 w-130" fetchpriority="high" width="520" height="360">
-                </div>
-            </div>
-    </section>
-    </div>
-    <section id="popularCate" class="bg-primary">
-        <div class="container">
-
-            <div class="flex flex-col">
-                <span class="h-0.5 w-7 bg-orange rounded-full ml-1"></span>
-                <span class="text-orange font-poppins font-semibold -mt-1 ml-1" style="font-variant: small-caps;">browse
-                    by
-                    craving</span>
-                <div class="flex justify-between items-center">
-                    <span class="text-white text-3xl">Popular Categories</span>
-                    <span class="text-lightwhite font-extralight font-poppins text-sm">Six Kitchen, one checkout cerated
-                        menus</span>
-                </div>
-                <!-- Grid -->
-                <div class="grid md:grid-cols-4 sm:grid-cols-2 lg:grid-cols-6 grid-cols-1 gap-5 mt-7 font-poppins">
-                    <div
-                        class="box1 h-auto w-auto px-5 py-5 bg-green-900 rounded-2xl border border-greenborder flex flex-col items-center justify-center">
-                        <div class="logo h-12 w-12 bg-[#1f5d1f] rounded-full flex justify-center items-center">
-                            <i class="fa-solid fa-fire-flame-curved text-lg text-orange"></i>
-                        </div>
-                        <span class="text-white font-medium text-sm mt-2.5">Wood-Fired</span>
-                        <span class="text-lightwhite text-xs mt-1">24 dishes</span>
-                    </div>
-
-                    <div
-                        class="box2 h-auto w-auto px-5 py-5 bg-green-900 rounded-2xl border border-greenborder flex flex-col items-center justify-center">
-                        <div class="logo h-12 w-12 bg-[#1f5d1f] rounded-full flex justify-center items-center">
-                            <i class="fa-solid fa-feather-pointed text-lg text-orange"></i>
-                        </div>
-                        <span class="text-white font-medium text-sm mt-2.5">Plant-Based</span>
-                        <span class="text-lightwhite text-xs mt-1">31 dishes</span>
-                    </div>
-
-                    <div
-                        class="box3 h-auto w-auto px-5 py-5 bg-green-900 rounded-2xl border border-greenborder flex flex-col items-center justify-center">
-                        <div class="logo h-12 w-12 bg-[#1f5d1f] rounded-full flex justify-center items-center">
-                            <i class="fa-solid fa-utensils text-lg text-orange"></i>
-                        </div>
-                        <span class="text-white font-medium text-sm mt-2.5">Quick Bowls</span>
-                        <span class="text-lightwhite text-xs mt-1">19 dishes</span>
-                    </div>
-
-                    <div
-                        class="box4 h-auto w-auto px-5 py-5 bg-green-900 rounded-2xl border border-greenborder flex flex-col items-center justify-center">
-                        <div class="logo h-12 w-12 bg-[#1f5d1f] rounded-full flex justify-center items-center">
-                            <i class="fa-solid fa-champagne-glasses text-lg text-orange"></i>
-                        </div>
-                        <span class="text-white font-medium text-sm mt-2.5">Chef Specials</span>
-                        <span class="text-lightwhite text-xs mt-1">14 dishes</span>
-                    </div>
-
-                    <div
-                        class="box5 h-auto w-auto px-5 py-5 bg-green-900 rounded-2xl border border-greenborder flex flex-col items-center justify-center">
-                        <div class="logo h-12 w-12 bg-[#1f5d1f] rounded-full flex justify-center items-center">
-                            <i class="fa-solid fa-cookie-bite text-lg text-orange"></i>
-                        </div>
-                        <span class="text-white font-medium text-sm mt-2.5">Fresh Bakes</span>
-                        <span class="text-lightwhite text-xs mt-1">22 dishes</span>
-                    </div>
-
-                    <div
-                        class="box6 h-auto w-auto px-5 py-5 bg-green-900 rounded-2xl border border-greenborder flex flex-col items-center justify-center">
-                        <div class="logo h-12 w-12 bg-[#1f5d1f] rounded-full flex justify-center items-center">
-                            <i class="fa-solid fa-bullseye text-lg text-orange"></i>
-                        </div>
-                        <span class="text-white font-medium text-sm mt-2.5">Gluten-Free</span>
-                        <span class="text-lightwhite text-xs mt-1">17 dishes</span>
+                    <!-- Right Side Part -->
+                    <div class="rightSide flex flex-col overflow-hidden rounded-2xl">
+                        <img src="assets/pizza.webp" alt="pizza"
+                            class="rounded-2xl object-cover lg:h-full h-80 w-full lg:max-w-130 hover:scale-110 transition-transform duration-700"
+                            fetchpriority="high" width="520" height="360">
                     </div>
                 </div>
-            </div>
+        </section>
         </div>
-    </section>
-    <section id="featuredDishes">
-        <div class="container">
-            <div class="flex flex-col">
-                <div class="flex flex-col items-center md:items-start">
+        <section id="popularCate" class="bg-primary">
+            <div class="container">
+
+                <div class="flex flex-col md:items-start items-center">
                     <span class="h-0.5 w-7 bg-orange rounded-full ml-1"></span>
                     <span class="text-orange font-poppins font-semibold -mt-1 ml-1"
-                        style="font-variant: small-caps;">this
-                        weeks edit</span>
+                        style="font-variant: small-caps;">browse
+                        by
+                        craving</span>
+                    <div class="flex md:justify-between w-full flex-col md:flex-row items-center mt-2">
+                        <span class="text-white text-3xl">Popular Categories</span>
+                        <span class="text-lightwhite font-extralight font-poppins text-sm">Six Kitchen, one checkout
+                            cerated
+                            menus</span>
+                    </div>
+                    <!-- Grid -->
+                    <div
+                        class="grid md:grid-cols-4 sm:grid-cols-2 lg:grid-cols-6 grid-cols-1 gap-5 mt-7 font-poppins w-full">
+                        <div
+                            class="box1 h-auto w-auto px-5 py-5 bg-green-900 rounded-2xl border border-greenborder flex flex-col items-center justify-center">
+                            <div class="logo h-12 w-12 bg-[#1f5d1f] rounded-full flex justify-center items-center">
+                                <i class="fa-solid fa-fire-flame-curved text-lg text-orange"></i>
+                            </div>
+                            <span class="text-white font-medium text-sm mt-2.5">Wood-Fired</span>
+                            <span class="text-lightwhite text-xs mt-1">24 dishes</span>
+                        </div>
+
+                        <div
+                            class="box2 h-auto w-auto px-5 py-5 bg-green-900 rounded-2xl border border-greenborder flex flex-col items-center justify-center">
+                            <div class="logo h-12 w-12 bg-[#1f5d1f] rounded-full flex justify-center items-center">
+                                <i class="fa-solid fa-feather-pointed text-lg text-orange"></i>
+                            </div>
+                            <span class="text-white font-medium text-sm mt-2.5">Plant-Based</span>
+                            <span class="text-lightwhite text-xs mt-1">31 dishes</span>
+                        </div>
+
+                        <div
+                            class="box3 h-auto w-auto px-5 py-5 bg-green-900 rounded-2xl border border-greenborder flex flex-col items-center justify-center">
+                            <div class="logo h-12 w-12 bg-[#1f5d1f] rounded-full flex justify-center items-center">
+                                <i class="fa-solid fa-utensils text-lg text-orange"></i>
+                            </div>
+                            <span class="text-white font-medium text-sm mt-2.5">Quick Bowls</span>
+                            <span class="text-lightwhite text-xs mt-1">19 dishes</span>
+                        </div>
+
+                        <div
+                            class="box4 h-auto w-auto px-5 py-5 bg-green-900 rounded-2xl border border-greenborder flex flex-col items-center justify-center">
+                            <div class="logo h-12 w-12 bg-[#1f5d1f] rounded-full flex justify-center items-center">
+                                <i class="fa-solid fa-champagne-glasses text-lg text-orange"></i>
+                            </div>
+                            <span class="text-white font-medium text-sm mt-2.5">Chef Specials</span>
+                            <span class="text-lightwhite text-xs mt-1">14 dishes</span>
+                        </div>
+
+                        <div
+                            class="box5 h-auto w-auto px-5 py-5 bg-green-900 rounded-2xl border border-greenborder flex flex-col items-center justify-center">
+                            <div class="logo h-12 w-12 bg-[#1f5d1f] rounded-full flex justify-center items-center">
+                                <i class="fa-solid fa-cookie-bite text-lg text-orange"></i>
+                            </div>
+                            <span class="text-white font-medium text-sm mt-2.5">Fresh Bakes</span>
+                            <span class="text-lightwhite text-xs mt-1">22 dishes</span>
+                        </div>
+
+                        <div
+                            class="box6 h-auto w-auto px-5 py-5 bg-green-900 rounded-2xl border border-greenborder flex flex-col items-center justify-center">
+                            <div class="logo h-12 w-12 bg-[#1f5d1f] rounded-full flex justify-center items-center">
+                                <i class="fa-solid fa-bullseye text-lg text-orange"></i>
+                            </div>
+                            <span class="text-white font-medium text-sm mt-2.5">Gluten-Free</span>
+                            <span class="text-lightwhite text-xs mt-1">17 dishes</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex justify-between items-center flex-col md:flex-row md:items-start">
-                    <span class="text-3xl font-semibold">Featured dishes</span>
-                    <span class="text-sm font-poppins font-semibold cursor-pointer">See full menu</span>
+            </div>
+        </section>
+        <section id="featuredDishes">
+            <div class="container">
+                <div class="flex flex-col">
+                    <div class="flex flex-col items-center md:items-start">
+                        <span class="h-0.5 w-7 bg-orange rounded-full ml-1"></span>
+                        <span class="text-orange font-poppins font-semibold -mt-1 ml-1"
+                            style="font-variant: small-caps;">this
+                            weeks edit</span>
+                    </div>
+                    <div class="flex justify-between items-center flex-col md:flex-row md:items-start">
+                        <span class="text-3xl font-semibold">Featured dishes</span>
+                        <span class="text-sm font-poppins font-semibold cursor-pointer">See full menu</span>
+                    </div>
+                    <!-- Grid -->
+                    <div class="flex justify-center items-center mt-5">
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 gap-y-5 w-full">
+                            <div class="card1 flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
+                                <img src="assets/burger.webp" alt="burger"
+                                    class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
+                                    height="176">
+                                <div class="content flex flex-col p-3">
+                                    <div class="flex flex-row justify-between items-center">
+                                        <span class="font-semibold">Charred Double Smash</span>
+                                        <span class="font-semibold text-orange font-poppins text-sm">$14.50</span>
+                                    </div>
+                                    <span class="text-ink -mt-0.5 border-b pb-2.5 border-orange">Lorem ipsum dolor sit
+                                        amet.</span>
+                                </div>
+                                <div class="flex flex-row justify-between items-center p-3">
+                                    <div class="starIcon flex flex-row items-center gap-1.5">
+                                        <i class="fa-solid fa-star text-amber-500"></i>
+                                        <span class="text-amber-500 font-poppins text-sm font-medium">4.9</span>
+                                    </div>
+
+                                    <button
+                                        class="bg-slate-900 text-white font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
+                                            class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
+                                </div>
+                            </div>
+                            <div class="card2 flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
+                                <img src="assets/veg.webp" alt="burger"
+                                    class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
+                                    height="176">
+                                <div class="content flex flex-col p-3">
+                                    <div class="flex flex-row justify-between items-center">
+                                        <span class="font-semibold">Heirloom Avocado Toast</span>
+                                        <span class="font-semibold text-orange font-poppins text-sm">$11.00</span>
+                                    </div>
+                                    <span class="text-ink -mt-0.5 border-b pb-2.5 border-orange">Lorem ipsum dolor sit
+                                        amet.</span>
+                                </div>
+                                <div class="flex flex-row justify-between items-center p-3">
+                                    <div class="starIcon flex flex-row items-center gap-1.5">
+                                        <i class="fa-solid fa-star text-amber-500"></i>
+                                        <span class="text-amber-500 font-poppins text-sm font-medium">4.9</span>
+                                    </div>
+
+                                    <button
+                                        class="bg-slate-900 text-white font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
+                                            class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
+                                </div>
+                            </div>
+                            <div class="card3 flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
+                                <img src="assets/kadai-paneer-recipe.webp" alt="burger"
+                                    class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
+                                    height="176">
+                                <div class="content flex flex-col p-3">
+                                    <div class="flex flex-row justify-between items-center">
+                                        <span class="font-semibold">Slow Butter Curry</span>
+                                        <span class="font-semibold text-orange font-poppins text-sm">$16.00</span>
+                                    </div>
+                                    <span class="text-ink -mt-0.5 border-b pb-2.5 border-orange">Lorem ipsum dolor sit
+                                        amet.</span>
+                                </div>
+                                <div class="flex flex-row justify-between items-center p-3">
+                                    <div class="starIcon flex flex-row items-center gap-1.5">
+                                        <i class="fa-solid fa-star text-amber-500"></i>
+                                        <span class="text-amber-500 font-poppins text-sm font-medium">4.9</span>
+                                    </div>
+
+                                    <button
+                                        class="bg-slate-900 text-white font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
+                                            class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
+                                </div>
+                            </div>
+                            <div class="card4 flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
+                                <img src="assets/instant-pot-dal-rice-recipe.webp" alt="burger"
+                                    class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
+                                    height="176">
+                                <div class="content flex flex-col p-3">
+                                    <div class="flex flex-row justify-between items-center">
+                                        <span class="font-semibold">Wood-Fired Margherita</span>
+                                        <span class="font-semibold text-orange font-poppins text-sm">$13.50</span>
+                                    </div>
+                                    <span class="text-ink -mt-0.5 border-b pb-2.5 border-orange">Lorem ipsum dolor sit
+                                        amet.</span>
+                                </div>
+                                <div class="flex flex-row justify-between items-center p-3">
+                                    <div class="starIcon flex flex-row items-center gap-1.5">
+                                        <i class="fa-solid fa-star text-amber-500"></i>
+                                        <span class="text-amber-500 font-poppins text-sm font-medium">4.9</span>
+                                    </div>
+
+                                    <button
+                                        class="bg-slate-900 text-white font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
+                                            class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="whyEmber" class="bg-[#efe8da]">
+            <div class="container">
+                <div class="flex justify-between flex-col lg:items-start items-center lg:flex-row gap-12">
+                    <!-- Left -->
+                    <div class="image ">
+                        <img src="assets/chef-cooking-kitchen-while-wearing-professional-attire.webp" alt="chefcooking"
+                            class="md:h-105 h-60 w-full object-cover rounded-2xl overflow-hidden" height="1050"
+                            width="1200">
+                    </div>
+                    <!-- Right -->
+                    <div class="flex flex-col flex-1">
+                        <div class="flex flex-col items-center md:items-start">
+
+                            <span class="h-0.5 w-7 bg-orange rounded-full ml-1"></span>
+                            <span class="text-orange font-poppins font-semibold -mt-1 ml-1"
+                                style="font-variant: small-caps;">why ember</span>
+                        </div>
+                        <span class="text-slate-950 text-5xl text-start  font-bold leading-10 mt-2">Built for people who
+                            take dinner
+                            seriously.</span>
+                        <p class="text-ink mt-3 font-poppins">We run our own kitchens, hire our own chefs and drive our
+                            own
+                            bikes every part of your order stays in our hands, not a stranger's.</p>
+                        <!-- Positive Points -->
+                        <div class="flex flex-col mt-10 gap-4">
+
+                            <div class="flex flex-col md:flex-row gap-3 pb-5 border-b border-whiteborder">
+                                <div class="icon h-14 w-14 bg-[#f4d7c1] flex justify-center items-center rounded-full">
+                                    <i class="fa-solid fa-shield-halved text-orange"></i>
+                                </div>
+                                <div class="flex flex-col justify-center">
+                                    <span class="text-slate-950 text-xl font-bold">Quality controlled</span>
+                                    <span class="-mt-1">Every kitchen follows one recipe book and standard.</span>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col md:flex-row gap-3 pb-5 border-b border-whiteborder">
+                                <div class="icon h-14 w-14 bg-[#f4d7c1] flex justify-center items-center rounded-full">
+                                    <i class="fa-solid fa-clock text-orange"></i>
+                                </div>
+                                <div class="flex flex-col justify-center">
+                                    <span class="text-slate-950 text-xl font-bold">Cooked on order</span>
+                                    <span class="-mt-1">Nothing is pre-made your ticket fires at checkout.</span>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col md:flex-row gap-3 pb-5 border-b border-whiteborder">
+                                <div class="icon h-14 w-14 bg-[#f4d7c1] flex justify-center items-center rounded-full">
+                                    <i class="fa-solid fa-feather-pointed text-orange"></i>
+                                </div>
+                                <div class="flex flex-col justify-center">
+                                    <span class="text-slate-950 text-xl font-bold">Sourced with Care</span>
+                                    <span class="-mt-1">Produce from regional growers, twice a week.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="sellers">
+            <div class="container">
+                <div class="flex flex-col md:items-start items-center">
+                    <span class="h-0.5 w-7 bg-orange rounded-full ml-1"></span>
+                    <span class="text-orange font-poppins font-semibold -mt-1 ml-1"
+                        style="font-variant: small-caps;">most
+                        reordered</span>
+                </div>
+                <div class="flex md:justify-between flex-col md:flex-row">
+                    <div class="flex flex-row justify-center md:justify-start">
+                        <span class="text-slate-950 text-3xl font-bold">Best Sellers</span>
+                    </div>
+                    <!-- Filter Buttons -->
+                    <div class="flex flex-row gap-3 md:mt-0 mt-4">
+                        <button id="all"
+                            class="bg-primary text-white font-poppins font-medium rounded-full h-10 w-24 cursor-pointer active:bg-[#154b3f]">All</button>
+                        <button id="bowls"
+                            class="bg-icon border border-whiteborder text-slate-950 font-poppins font-medium rounded-full h-10 w-24 cursor-pointer active:bg-primary active:text-white">Bowls</button>
+                        <button id="burger"
+                            class="bg-icon border border-whiteborder text-slate-950 font-poppins font-medium rounded-full h-10 w-24 cursor-pointer active:bg-primary active:text-white">Burger</button>
+                        <button id="curies"
+                            class="bg-icon border border-whiteborder text-slate-950 font-poppins font-medium rounded-full h-10 w-24 cursor-pointer active:bg-primary active:text-white">Curies</button>
+                    </div>
                 </div>
                 <!-- Grid -->
-                <div class="flex justify-center items-center mt-5">
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 gap-y-5 w-full">
-                        <div class="card1 flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white ">
-                            <img src="assets/burger.webp"
-                                alt="burger" class="h-44 rounded-xl object-cover" height="176">
+                <div class="flex flex-col mt-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 gap-y-5">
+                        <div class="card1 flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
+                            <img src="assets/burger.webp" alt="burger"
+                                class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
+                                height="176">
                             <div class="content flex flex-col p-3">
                                 <div class="flex flex-row justify-between items-center">
                                     <span class="font-semibold">Charred Double Smash</span>
                                     <span class="font-semibold text-orange font-poppins text-sm">$14.50</span>
                                 </div>
-                                <span class="text-ink -mt-0.5 border-b pb-2.5 border-orange">Lorem ipsum dolor sit
-                                    amet.</span>
+                                <div
+                                    class="flex flex-row items-center font-poppins gap-3 mt-2 border-b pb-3 border-orange">
+                                    <div class="time flex items-center gap-1">
+                                        <i class="fa-solid fa-clock text-[#747373] font-semibold"></i>
+                                        <span class="text-xs text-[#747373] font-medium">15-22 min</span>
+                                    </div>
+                                    <div class="level flex items-center gap-1">
+                                        <i class="fa-solid fa-fire text-[#747373] font-semibold"></i>
+                                        <span class="text-xs text-[#747373] font-medium">Medium</span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="flex flex-row justify-between items-center p-3">
                                 <div class="starIcon flex flex-row items-center gap-1.5">
@@ -247,16 +487,26 @@
                                         class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
                             </div>
                         </div>
-                        <div class="card2 flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white">
-                            <img src="assets/veg.webp"
-                                alt="burger" class="h-44 rounded-xl object-cover" height="176">
+                        <div class="card2 flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
+                            <img src="assets/veg.webp" alt="burger"
+                                class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
+                                height="176">
                             <div class="content flex flex-col p-3">
                                 <div class="flex flex-row justify-between items-center">
-                                    <span class="font-semibold">Charred Double Smash</span>
+                                    <span class="font-semibold">Heirloom Avocado Toast</span>
                                     <span class="font-semibold text-orange font-poppins text-sm">$11.00</span>
                                 </div>
-                                <span class="text-ink -mt-0.5 border-b pb-2.5 border-orange">Lorem ipsum dolor sit
-                                    amet.</span>
+                                <div
+                                    class="flex flex-row items-center font-poppins gap-3 mt-2 border-b pb-3 border-orange">
+                                    <div class="time flex items-center gap-1">
+                                        <i class="fa-solid fa-clock text-[#747373] font-semibold"></i>
+                                        <span class="text-xs text-[#747373] font-medium">15-20 min</span>
+                                    </div>
+                                    <div class="level flex items-center gap-1">
+                                        <i class="fa-solid fa-fire text-[#747373] font-semibold"></i>
+                                        <span class="text-xs text-[#747373] font-medium">Mid</span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="flex flex-row justify-between items-center p-3">
                                 <div class="starIcon flex flex-row items-center gap-1.5">
@@ -269,16 +519,26 @@
                                         class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
                             </div>
                         </div>
-                        <div class="card3 flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white">
-                            <img src="assets/kadai-paneer-recipe.webp"
-                                alt="burger" class="h-44 rounded-xl object-cover" height="176">
+                        <div class="card3 flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
+                            <img src="assets/kadai-paneer-recipe.webp" alt="burger"
+                                class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
+                                height="176">
                             <div class="content flex flex-col p-3">
                                 <div class="flex flex-row justify-between items-center">
                                     <span class="font-semibold">Slow Butter Curry</span>
                                     <span class="font-semibold text-orange font-poppins text-sm">$16.00</span>
                                 </div>
-                                <span class="text-ink -mt-0.5 border-b pb-2.5 border-orange">Lorem ipsum dolor sit
-                                    amet.</span>
+                                <div
+                                    class="flex flex-row items-center font-poppins gap-3 mt-2 border-b pb-3 border-orange">
+                                    <div class="time flex items-center gap-1">
+                                        <i class="fa-solid fa-clock text-[#747373] font-semibold"></i>
+                                        <span class="text-xs text-[#747373] font-medium">20-25 min</span>
+                                    </div>
+                                    <div class="level flex items-center gap-1">
+                                        <i class="fa-solid fa-fire text-[#747373] font-semibold"></i>
+                                        <span class="text-xs text-[#747373] font-medium">Veg</span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="flex flex-row justify-between items-center p-3">
                                 <div class="starIcon flex flex-row items-center gap-1.5">
@@ -291,16 +551,26 @@
                                         class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
                             </div>
                         </div>
-                        <div class="card4 flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white">
-                            <img src="assets/instant-pot-dal-rice-recipe.webp"
-                                alt="burger" class="h-44 rounded-xl object-cover" height="176">
+                        <div class="card4 flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
+                            <img src="assets/instant-pot-dal-rice-recipe.webp" alt="burger"
+                                class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
+                                height="176">
                             <div class="content flex flex-col p-3">
                                 <div class="flex flex-row justify-between items-center">
                                     <span class="font-semibold">Wood-Fired Margherita</span>
                                     <span class="font-semibold text-orange font-poppins text-sm">$13.50</span>
                                 </div>
-                                <span class="text-ink -mt-0.5 border-b pb-2.5 border-orange">Lorem ipsum dolor sit
-                                    amet.</span>
+                                <div
+                                    class="flex flex-row items-center font-poppins gap-3 mt-2 border-b pb-3 border-orange">
+                                    <div class="time flex items-center gap-1">
+                                        <i class="fa-solid fa-clock text-[#747373] font-semibold"></i>
+                                        <span class="text-xs text-[#747373] font-medium">10-15 min</span>
+                                    </div>
+                                    <div class="level flex items-center gap-1">
+                                        <i class="fa-solid fa-fire text-[#747373] font-semibold"></i>
+                                        <span class="text-xs text-[#747373] font-medium">Mid</span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="flex flex-row justify-between items-center p-3">
                                 <div class="starIcon flex flex-row items-center gap-1.5">
@@ -314,580 +584,401 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-            </div>
-        </div>
-    </section>
-    <section id="whyEmber" class="bg-[#efe8da]">
+        </section>
         <div class="container">
-            <div class="flex justify-between flex-col md:flex-row gap-12">
-                <!-- Left -->
-                <div class="image md:w-120">
-                    <img src="assets/chef-cooking-kitchen-while-wearing-professional-attire.webp" alt=""
-                        class="md:h-105 h-60 w-auto md:w-120 object-cover rounded-2xl overflow-hidden" height="1050" width="1200">
-                </div>
-                <!-- Right -->
-                <div class="flex flex-col flex-1">
-                    <div class="flex flex-col items-center md:items-start">
-
+            <section id="recommend" class="bg-[#f8eacf] rounded-4xl border border-whiteborder mb-25">
+                <div class="flex justify-between flex-col lg:flex-row gap-12 px-4 md:px-7">
+                    <!-- Left -->
+                    <div class="image">
+                        <img src="assets/male-chef-kitchen-cooking-dish-frying-pan.webp" alt="malechefkitchen"
+                            class="lg:h-105 h-72 w-full lg:w-120 object-cover rounded-2xl overflow-hidden" height="900"
+                            width="1200">
+                    </div>
+                    <!-- Right -->
+                    <div class="flex flex-col flex-1">
                         <span class="h-0.5 w-7 bg-orange rounded-full ml-1"></span>
                         <span class="text-orange font-poppins font-semibold -mt-1 ml-1"
-                            style="font-variant: small-caps;">why ember</span>
-                    </div>
-                    <span class="text-slate-950 text-5xl font-bold leading-10 mt-2">Built for people who take dinner
-                        seriously.</span>
-                    <p class="text-ink mt-3 font-poppins">We run our own kitchens, hire our own chefs and drive our own
-                        bikes every part of your order stays in our hands, not a stranger's.</p>
-                    <!-- Positive Points -->
-                    <div class="flex flex-col mt-10 gap-4">
-
-                        <div class="flex flex-row gap-3">
-                            <div class="icon h-14 w-16 bg-[#f4d7c1] flex justify-center items-center rounded-full">
-                                <i class="fa-solid fa-shield-halved text-orange"></i>
+                            style="font-variant: small-caps;">chef recommendation</span>
+                        <p class="text-slate-950 text-4xl font-bold leading-8 mt-2.5">"Braise the short rib for twelve
+                            hours, finish it under the wood fire for two minutes that's where the whole dish comes
+                            together."</p>
+                        <span class="mt-12 font-semibold font-poppins text-xl">Marco Delacroix</span>
+                        <p class="text-ink font-poppins">Executive Chef, Ember Kitchens</p>
+                        <div
+                            class="flex flex-row gap-2.5 mt-4 rounded-2xl bg-white h-auto w-auto min-w-72 max-w-96 px-3 py-3 items-center">
+                            <div class="image">
+                                <img src="assets/burger2.webp" alt="burger2" class="h-20 w-20 rounded-2xl object-cover"
+                                    height="80" width="80">
                             </div>
-                            <div class="flex flex-col justify-center">
-                                <span class="text-slate-950 text-xl font-bold">Quality controlled</span>
-                                <span class="-mt-1">Every kitchen follows one recipe book and standard.</span>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-row gap-3">
-                            <div class="icon h-14 w-16 bg-[#f4d7c1] flex justify-center items-center rounded-full">
-                                <i class="fa-solid fa-clock text-orange"></i>
-                            </div>
-                            <div class="flex flex-col justify-center">
-                                <span class="text-slate-950 text-xl font-bold">Cooked on order</span>
-                                <span class="-mt-1">Nothing is pre-made your ticket fires at checkout.</span>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-row gap-3">
-                            <div class="icon h-14 w-16 bg-[#f4d7c1] flex justify-center items-center rounded-full">
-                                <i class="fa-solid fa-feather-pointed text-orange"></i>
-                            </div>
-                            <div class="flex flex-col justify-center">
-                                <span class="text-slate-950 text-xl font-bold">Sourced with Care</span>
-                                <span class="-mt-1">Produce from regional growers, twice a week.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="sellers">
-        <div class="container">
-            <div class="flex flex-col md:items-start items-center">
-                <span class="h-0.5 w-7 bg-orange rounded-full ml-1"></span>
-                <span class="text-orange font-poppins font-semibold -mt-1 ml-1" style="font-variant: small-caps;">most
-                    reordered</span>
-            </div>
-            <div class="flex md:justify-between flex-col md:flex-row">
-                <div class="flex flex-row justify-center md:justify-start">
-                    <span class="text-slate-950 text-3xl font-bold">Best Sellers</span>
-                </div>
-                <!-- Filter Buttons -->
-                <div class="flex flex-row gap-3 md:mt-0 mt-4">
-                    <button id="all"
-                        class="bg-primary text-white font-poppins font-medium rounded-full h-10 w-24 cursor-pointer active:bg-[#154b3f]">All</button>
-                    <button id="bowls"
-                        class="bg-icon border border-whiteborder text-slate-950 font-poppins font-medium rounded-full h-10 w-24 cursor-pointer active:bg-primary active:text-white">Bowls</button>
-                    <button id="burger"
-                        class="bg-icon border border-whiteborder text-slate-950 font-poppins font-medium rounded-full h-10 w-24 cursor-pointer active:bg-primary active:text-white">Burger</button>
-                    <button id="curies"
-                        class="bg-icon border border-whiteborder text-slate-950 font-poppins font-medium rounded-full h-10 w-24 cursor-pointer active:bg-primary active:text-white">Curies</button>
-                </div>
-            </div>
-            <!-- Grid -->
-            <div class="flex flex-col mt-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 gap-y-5">
-                    <div class="card1 flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white">
-                        <img src="assets/burger.webp"
-                            alt="burger" class="h-44 rounded-xl object-cover" height="176">
-                        <div class="content flex flex-col p-3">
-                            <div class="flex flex-row justify-between items-center">
-                                <span class="font-semibold">Charred Double Smash</span>
-                                <span class="font-semibold text-orange font-poppins text-sm">$14.50</span>
-                            </div>
-                            <div class="flex flex-row items-center font-poppins gap-3 mt-2 border-b pb-3 border-orange">
-                                <div class="time flex items-center gap-1">
-                                    <i class="fa-solid fa-clock text-[#747373] font-semibold"></i>
-                                    <span class="text-xs text-[#747373] font-medium">15-22 min</span>
-                                </div>
-                                <div class="level flex items-center gap-1">
-                                    <i class="fa-solid fa-fire text-[#747373] font-semibold"></i>
-                                    <span class="text-xs text-[#747373] font-medium">Medium</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex flex-row justify-between items-center p-3">
-                            <div class="starIcon flex flex-row items-center gap-1.5">
-                                <i class="fa-solid fa-star text-amber-500"></i>
-                                <span class="text-amber-500 font-poppins text-sm font-medium">4.9</span>
-                            </div>
-
-                            <button
-                                class="bg-slate-900 text-white font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
-                                    class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
-                        </div>
-                    </div>
-                    <div class="card2 flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white">
-                        <img src="assets/veg.webp"
-                            alt="burger" class="h-44 rounded-xl object-cover" height="176">
-                        <div class="content flex flex-col p-3">
-                            <div class="flex flex-row justify-between items-center">
-                                <span class="font-semibold">Charred Double Smash</span>
-                                <span class="font-semibold text-orange font-poppins text-sm">$11.00</span>
-                            </div>
-                            <div class="flex flex-row items-center font-poppins gap-3 mt-2 border-b pb-3 border-orange">
-                                <div class="time flex items-center gap-1">
-                                    <i class="fa-solid fa-clock text-[#747373] font-semibold"></i>
-                                    <span class="text-xs text-[#747373] font-medium">15-20 min</span>
-                                </div>
-                                <div class="level flex items-center gap-1">
-                                    <i class="fa-solid fa-fire text-[#747373] font-semibold"></i>
-                                    <span class="text-xs text-[#747373] font-medium">Mid</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex flex-row justify-between items-center p-3">
-                            <div class="starIcon flex flex-row items-center gap-1.5">
-                                <i class="fa-solid fa-star text-amber-500"></i>
-                                <span class="text-amber-500 font-poppins text-sm font-medium">4.9</span>
-                            </div>
-
-                            <button
-                                class="bg-slate-900 text-white font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
-                                    class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
-                        </div>
-                    </div>
-                    <div class="card3 flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white">
-                        <img src="assets/kadai-paneer-recipe.webp"
-                            alt="burger" class="h-44 rounded-xl object-cover" height="176" >
-                        <div class="content flex flex-col p-3">
-                            <div class="flex flex-row justify-between items-center">
-                                <span class="font-semibold">Slow Butter Curry</span>
-                                <span class="font-semibold text-orange font-poppins text-sm">$16.00</span>
-                            </div>
-                            <div class="flex flex-row items-center font-poppins gap-3 mt-2 border-b pb-3 border-orange">
-                                <div class="time flex items-center gap-1">
-                                    <i class="fa-solid fa-clock text-[#747373] font-semibold"></i>
-                                    <span class="text-xs text-[#747373] font-medium">20-25 min</span>
-                                </div>
-                                <div class="level flex items-center gap-1">
-                                    <i class="fa-solid fa-fire text-[#747373] font-semibold"></i>
-                                    <span class="text-xs text-[#747373] font-medium">Veg</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex flex-row justify-between items-center p-3">
-                            <div class="starIcon flex flex-row items-center gap-1.5">
-                                <i class="fa-solid fa-star text-amber-500"></i>
-                                <span class="text-amber-500 font-poppins text-sm font-medium">4.9</span>
-                            </div>
-
-                            <button
-                                class="bg-slate-900 text-white font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
-                                    class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
-                        </div>
-                    </div>
-                    <div class="card4 flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white">
-                        <img src="assets/instant-pot-dal-rice-recipe.webp"
-                            alt="burger" class="h-44 rounded-xl object-cover" height="176">
-                        <div class="content flex flex-col p-3">
-                            <div class="flex flex-row justify-between items-center">
-                                <span class="font-semibold">Wood-Fired Margherita</span>
-                                <span class="font-semibold text-orange font-poppins text-sm">$13.50</span>
-                            </div>
-                            <div class="flex flex-row items-center font-poppins gap-3 mt-2 border-b pb-3 border-orange">
-                                <div class="time flex items-center gap-1">
-                                    <i class="fa-solid fa-clock text-[#747373] font-semibold"></i>
-                                    <span class="text-xs text-[#747373] font-medium">10-15 min</span>
-                                </div>
-                                <div class="level flex items-center gap-1">
-                                    <i class="fa-solid fa-fire text-[#747373] font-semibold"></i>
-                                    <span class="text-xs text-[#747373] font-medium">Mid</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex flex-row justify-between items-center p-3">
-                            <div class="starIcon flex flex-row items-center gap-1.5">
-                                <i class="fa-solid fa-star text-amber-500"></i>
-                                <span class="text-amber-500 font-poppins text-sm font-medium">4.9</span>
-                            </div>
-
-                            <button
-                                class="bg-slate-900 text-white font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
-                                    class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </section>
-    <div class="container">
-        <section id="recommend" class="bg-[#f8eacf] rounded-4xl border border-whiteborder mb-25">
-            <div class="flex justify-between flex-col lg:flex-row gap-12 px-4 md:px-7">
-                <!-- Left -->
-                <div class="image md:w-120">
-                    <img src="assets/male-chef-kitchen-cooking-dish-frying-pan.webp" alt=""
-                        class="md:h-105 h-56 w-auto md:w-120 object-cover rounded-2xl overflow-hidden" height="900" width="1200" >
-                </div>
-                <!-- Right -->
-                <div class="flex flex-col flex-1">
-                    <span class="h-0.5 w-7 bg-orange rounded-full ml-1"></span>
-                    <span class="text-orange font-poppins font-semibold -mt-1 ml-1"
-                        style="font-variant: small-caps;">chef recommendation</span>
-                    <p class="text-slate-950 text-4xl font-bold leading-8 mt-2.5">"Braise the short rib for twelve
-                        hours, finish it under the wood fire for two minutes that's where the whole dish comes
-                        together."</p>
-                    <span class="mt-12 font-semibold font-poppins text-xl">Marco Delacroix</span>
-                    <p class="text-ink font-poppins">Executive Chef, Ember Kitchens</p>
-                    <div
-                        class="flex flex-row gap-2.5 mt-4 rounded-2xl bg-white h-auto w-auto min-w-72 max-w-96 px-3 py-3 items-center">
-                        <div class="image">
-                            <img src="assets/burger2.webp"
-                                alt="" class="h-20 w-20 rounded-2xl object-cover" height="80" width="80">
-                        </div>
-                        <div class="flex flex-col font-poppins">
-                            <span class="font-bold text-lg">Wood-Fired Short Rib</span>
-                            <span class="-mt-0.5 text-sm text-ink ">This week's special- $22.00</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-    <section id="review" class="bg-[#efe8da]">
-        <div class="container">
-            <div class="flex flex-col">
-                <div class="flex flex-col md:items-start items-center">
-
-                    <span class="h-0.5 w-7 bg-orange rounded-full ml-1"></span>
-                    <span class="text-orange font-poppins font-semibold -mt-1 ml-1"
-                        style="font-variant: small-caps;">guest
-                        notes</span>
-                </div>
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <span class="text-3xl font-bold text-slate-950">What People are saying</span>
-                    <div class="flex flex-row gap-1 items-center">
-                        <div class="flex flex-row gap-2 items-center">
-                            <i class="fa-solid fa-star text-amber-500"></i>
-                            <span class="font-poppins font-medium text-sm">4.9 average •</span>
-                        </div>
-                        <span class="font-poppins font-medium text-sm">2,300 reviews</span>
-                    </div>
-                </div>
-                <!-- Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
-                    <div class="h-auto w-auto bg-white flex flex-col rounded-2xl p-5">
-                        <div class="flex flex-row">
-                            <i class="fa-solid fa-star text-amber-500"></i>
-                            <i class="fa-solid fa-star text-amber-500"></i>
-                            <i class="fa-solid fa-star text-amber-500"></i>
-                            <i class="fa-solid fa-star text-amber-500"></i>
-                            <i class="fa-solid fa-star text-amber-500"></i>
-                        </div>
-                        <p class="text-ink font-poppins mt-3.5">"Orered on a wines and its arrived faster than i could
-                            set the table Tasted like a sit-down kitchen."</p>
-                        <div class="flex flex-row items-center gap-2 mt-16">
-                            <img src="assets/Lucky_Logo.webp" alt="" class="rounded-full h-12 w-12" height="48" width="48" loading="lazy" >
                             <div class="flex flex-col font-poppins">
-                                <span class="text-slate-950 font-medium">Mali Lucky</span>
-                                <span class="text-ink -mt-0.5 text-xs">Surat District</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="h-auto w-auto bg-white flex flex-col rounded-2xl p-5">
-                        <div class="flex flex-row">
-                            <i class="fa-solid fa-star text-amber-500"></i>
-                            <i class="fa-solid fa-star text-amber-500"></i>
-                            <i class="fa-solid fa-star text-amber-500"></i>
-                            <i class="fa-solid fa-star text-amber-500"></i>
-                            <i class="fa-solid fa-star text-amber-500"></i>
-                        </div>
-                        <p class="text-ink font-poppins mt-3.5">"The butter curry is worth reordering weeldy. Pertains
-                            are generous, packaging holds up."</p>
-                        <div class="flex flex-row items-center gap-2 mt-16">
-                            <img src="assets/Lucky_Logo.webp" alt="" class="rounded-full h-12 w-12" height="48" width="48" loading="lazy" >
-                            <div class="flex flex-col font-poppins">
-                                <span class="text-slate-950 font-medium">Mali Lucky</span>
-                                <span class="text-ink -mt-0.5 text-xs">Surat District</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="h-auto w-auto bg-white flex flex-col rounded-2xl p-5">
-                        <div class="flex flex-row">
-                            <i class="fa-solid fa-star text-amber-500"></i>
-                            <i class="fa-solid fa-star text-amber-500"></i>
-                            <i class="fa-solid fa-star text-amber-500"></i>
-                            <i class="fa-solid fa-star text-amber-500"></i>
-                            <i class="fa-solid fa-star text-amber-500"></i>
-                        </div>
-                        <p class="text-ink font-poppins mt-3.5">"Can't tell the difference from dining in. The smash
-                            burger converted my whole office."</p>
-                        <div class="flex flex-row items-center gap-2 mt-16">
-                            <img src="assets/Lucky_Logo.webp" alt="" class="rounded-full h-12 w-12" height="48" width="48" loading="lazy">
-                            <div class="flex flex-col font-poppins">
-                                <span class="text-slate-950 font-medium">Mali Lucky</span>
-                                <span class="text-ink -mt-0.5 text-xs">Surat District</span>
+                                <span class="font-bold text-lg">Wood-Fired Short Rib</span>
+                                <span class="-mt-0.5 text-sm text-ink ">This week's special- $22.00</span>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
-    </section>
-    <section id="about">
-        <div class="container">
-            <div class="flex flex-col items-center md:items-start">
-                <span class="h-0.5 w-7 bg-orange rounded-full ml-1"></span>
-                <span class="text-orange font-poppins font-semibold -mt-1 ml-1" style="font-variant: small-caps;">from
-                    ticket to table</span>
-                <span class="text-3xl font-bold text-slate-950">How delivery works</span>
-                <!-- Grid -->
-                <div class="flex flex-col md:flex-row items-center">
-                    <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-                        <div class="flex flex-col h-auto w-full bg-white p-4 rounded-2xl">
-                            <span class="text-orange text-lg font-semibold">01</span>
-                            <div
-                                class="bg-primary h-14 w-14 text-orange flex justify-center items-center rounded-full text-lg my-5">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </div>
-                            <span class="text-slate-950 text-xl font-semibold">Browse the menu</span>
-                            <span class="text-ink leading-5 font-poppins font-light text-sm">Filter by craving diet
-                                or spice level in a few taps.</span>
-                        </div>
-
-                        <div class="flex flex-col h-auto w-auto min-w-62 bg-white p-4 rounded-2xl">
-                            <span class="text-orange text-lg font-semibold">02</span>
-                            <div
-                                class="bg-primary h-14 w-14 text-orange flex justify-center items-center rounded-full text-lg my-5">
-                                <i class="fa-solid fa-bowl-food"></i>
-                            </div>
-                            <span class="text-slate-950 text-xl font-semibold">We fire your ticket</span>
-                            <span class="tex leading-5 font-poppins font-light text-sm">The nearest kitchens
-                                starts 000 king on confirmation.</span>
-                        </div>
-
-                        <div class="flex flex-col h-auto w-auto min-w-62 bg-white p-4 rounded-2xl">
-                            <span class="text-orange text-lg font-semibold">03</span>
-                            <div
-                                class="bg-primary h-14 w-14 text-orange flex justify-center items-center rounded-full text-lg my-5">
-                                <i class="fa-solid fa-pizza-slice"></i>
-                            </div>
-                            <span class="text-slate-950 text-xl font-semibold">A rider picks it up</span>
-                            <span class="text-ink leading-5 font-poppins font-light text-sm">Insulated bugs keep
-                                temperature and presentation infact.</span>
-                        </div>
-
-                        <div class="flex flex-col h-auto w-auto min-w-62 bg-white p-4 rounded-2xl">
-                            <span class="text-orange text-lg font-semibold">04</span>
-                            <div
-                                class="bg-primary h-14 w-14 text-orange flex justify-center items-center rounded-full text-lg my-5">
-                                <i class="fa-solid fa-check"></i>
-                            </div>
-                            <span class="text-slate-950 text-xl font-semibold">Track and enjoy</span>
-                            <span class="text-ink leading-5 font-poppins font-light text-sm">Live tracking most
-                                orders and under 32 minutes.</span>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="location" class="bg-[#efe8da]">
-        <div class="container">
-            <div class="flex justify-between gap-10 md:flex-row flex-col">
+        <section id="review" class="bg-[#efe8da]">
+            <div class="container">
                 <div class="flex flex-col">
-                    <div class="flex flex-col items-center md:items-start">
+                    <div class="flex flex-col md:items-start items-center">
+
                         <span class="h-0.5 w-7 bg-orange rounded-full ml-1"></span>
                         <span class="text-orange font-poppins font-semibold -mt-1 ml-1"
-                            style="font-variant: small-caps;">where we deliver</span>
+                            style="font-variant: small-caps;">guest
+                            notes</span>
                     </div>
-                    <div class="mt-2 md:mt-0">
-                        <span class="text-3xl font-bold text-slate-950">Six kitchens, citywide
-                            coverage.</span>
-                        <p class="text-ink font-poppins mt-1.5">Each kitchen serves a 5km radius so food travels loss
-                            and arrives hotter. Enter a postcode to confirm.</p>
-
-                        <!-- Location Icons -->
-                        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mt-12">
-                            <div
-                                class="flex flex-row justify-center items-center gap-2 p-2 w-auto max-w-40 bg-white rounded-full border border-whiteborder">
-                                <i class="fa-solid fa-location-dot text-orange"></i>
-                                <span class="font-poppins font-medium">Riverside</span>
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <span class="text-3xl font-bold text-slate-950">What People are saying</span>
+                        <div class="flex flex-row gap-1 items-center">
+                            <div class="flex flex-row gap-2 items-center">
+                                <i class="fa-solid fa-star text-amber-500"></i>
+                                <span class="font-poppins font-medium text-sm">4.9 average •</span>
                             </div>
-
-                            <div
-                                class="flex flex-row justify-center items-center gap-2 p-2 w-auto max-w-40 bg-white rounded-full border border-whiteborder">
-                                <i class="fa-solid fa-location-dot text-orange"></i>
-                                <span class="font-poppins font-medium">HarborPoint</span>
+                            <span class="font-poppins font-medium text-sm">2,300 reviews</span>
+                        </div>
+                    </div>
+                    <!-- Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
+                        <div class="h-auto w-auto bg-white flex flex-col rounded-2xl p-5">
+                            <div class="flex flex-row">
+                                <i class="fa-solid fa-star text-amber-500"></i>
+                                <i class="fa-solid fa-star text-amber-500"></i>
+                                <i class="fa-solid fa-star text-amber-500"></i>
+                                <i class="fa-solid fa-star text-amber-500"></i>
+                                <i class="fa-solid fa-star text-amber-500"></i>
                             </div>
-
-                            <div
-                                class="flex flex-row justify-center items-center gap-2 p-2 w-auto max-w-40 bg-white rounded-full border border-whiteborder">
-                                <i class="fa-solid fa-location-dot text-orange"></i>
-                                <span class="font-poppins font-medium">Milibrock</span>
+                            <p class="text-ink font-poppins mt-3.5">"Orered on a wines and its arrived faster than i
+                                could
+                                set the table Tasted like a sit-down kitchen."</p>
+                            <div class="flex flex-row items-center gap-2 mt-16">
+                                <img src="assets/Lucky_Logo.webp" alt="luckylogo" class="rounded-full h-12 w-12"
+                                    height="48" width="48" loading="lazy">
+                                <div class="flex flex-col font-poppins">
+                                    <span class="text-slate-950 font-medium">Mali Lucky</span>
+                                    <span class="text-ink -mt-0.5 text-xs">Surat District</span>
+                                </div>
                             </div>
+                        </div>
 
-                            <div
-                                class="flex flex-row justify-center items-center gap-2 p-2 w-auto max-w-40 bg-white rounded-full border border-whiteborder">
-                                <i class="fa-solid fa-location-dot text-orange"></i>
-                                <span class="font-poppins font-medium">CtdTown</span>
+                        <div class="h-auto w-auto bg-white flex flex-col rounded-2xl p-5">
+                            <div class="flex flex-row">
+                                <i class="fa-solid fa-star text-amber-500"></i>
+                                <i class="fa-solid fa-star text-amber-500"></i>
+                                <i class="fa-solid fa-star text-amber-500"></i>
+                                <i class="fa-solid fa-star text-amber-500"></i>
+                                <i class="fa-solid fa-star text-amber-500"></i>
                             </div>
-
-                            <div
-                                class="flex flex-row justify-center items-center gap-2 p-2 w-auto max-w-40 bg-white rounded-full border border-whiteborder">
-                                <i class="fa-solid fa-location-dot text-orange"></i>
-                                <span class="font-poppins font-medium">Northgate</span>
+                            <p class="text-ink font-poppins mt-3.5">"The butter curry is worth reordering weeldy.
+                                Pertains
+                                are generous, packaging holds up."</p>
+                            <div class="flex flex-row items-center gap-2 mt-16">
+                                <img src="assets/Lucky_Logo.webp" alt="luckylogo" class="rounded-full h-12 w-12"
+                                    height="48" width="48" loading="lazy">
+                                <div class="flex flex-col font-poppins">
+                                    <span class="text-slate-950 font-medium">Mali Lucky</span>
+                                    <span class="text-ink -mt-0.5 text-xs">Surat District</span>
+                                </div>
                             </div>
+                        </div>
 
-                            <div
-                                class="flex flex-row justify-center items-center gap-2 p-2 w-auto max-w-40 bg-white rounded-full border border-whiteborder">
-                                <i class="fa-solid fa-location-dot text-orange"></i>
-                                <span class="font-poppins font-medium">Fairview</span>
+                        <div class="h-auto w-auto bg-white flex flex-col rounded-2xl p-5">
+                            <div class="flex flex-row">
+                                <i class="fa-solid fa-star text-amber-500"></i>
+                                <i class="fa-solid fa-star text-amber-500"></i>
+                                <i class="fa-solid fa-star text-amber-500"></i>
+                                <i class="fa-solid fa-star text-amber-500"></i>
+                                <i class="fa-solid fa-star text-amber-500"></i>
+                            </div>
+                            <p class="text-ink font-poppins mt-3.5">"Can't tell the difference from dining in. The smash
+                                burger converted my whole office."</p>
+                            <div class="flex flex-row items-center gap-2 mt-16">
+                                <img src="assets/Lucky_Logo.webp" alt="luckylogo" class="rounded-full h-12 w-12"
+                                    height="48" width="48" loading="lazy">
+                                <div class="flex flex-col font-poppins">
+                                    <span class="text-slate-950 font-medium">Mali Lucky</span>
+                                    <span class="text-ink -mt-0.5 text-xs">Surat District</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Map -->
-                <div class="map flex-1">a</div>
             </div>
-        </div>
-
-    </section>
-    <div class="container">
-        <section id="unknown" class="bg-primary rounded-4xl mt-25">
-            <div class="flex flex-col px-4 md:px-14">
+        </section>
+        <section id="about">
+            <div class="container">
                 <div class="flex flex-col items-center md:items-start">
-
                     <span class="h-0.5 w-7 bg-orange rounded-full ml-1"></span>
                     <span class="text-orange font-poppins font-semibold -mt-1 ml-1"
-                        style="font-variant: small-caps;">the ember app</span>
-                </div>
-                <div class="flex justify-between flex-col md:flex-row gap-7">
-                    <div class="left flex-1">
-                        <span class="text-3xl font-bold text-white">Order faster. Track live. Save your
-                            favourites.</span>
-                        <p class="text-lightwhite font-poppins text-sm mt-6">Reorder in two taps, split delivery with a
-                            friend, and watch your rider approach in real time.</p>
-                        <!-- Download Way -->
-                        <div class="mt-8 flex md:flex-row flex-col gap-3">
-                            <a href="">
+                        style="font-variant: small-caps;">from
+                        ticket to table</span>
+                    <span class="text-3xl font-bold text-slate-950">How delivery works</span>
+                    <!-- Grid -->
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+                            <div class="flex flex-col h-auto w-full bg-white p-4 rounded-2xl">
+                                <span class="text-orange text-lg font-semibold">01</span>
                                 <div
-                                    class="border border-whiteborder rounded-2xl h-auto w-auto max-w-52 p-4 hover:bg-white group flex flex-row items-center gap-5">
-                                    <div class="appleIcon">
-                                        <i class="fa-brands fa-apple text-white group-hover:text-black"></i>
-                                    </div>
-                                    <div class="content flex flex-col font-poppins">
-                                        <span class="text-whiteborder group-hover:text-black text-sm">Download on
-                                            the</span>
-                                        <span class="text-white group-hover:text-black font-medium -mt-0.5">Apple
-                                            Store</span>
-                                    </div>
+                                    class="bg-primary h-14 w-14 text-orange flex justify-center items-center rounded-full text-lg my-5">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
                                 </div>
-                            </a>
+                                <span class="text-slate-950 text-xl font-semibold">Browse the menu</span>
+                                <span class="text-ink leading-5 font-poppins font-light text-sm">Filter by craving diet
+                                    or spice level in a few taps.</span>
+                            </div>
 
-                            <a href="">
+                            <div class="flex flex-col h-auto w-auto min-w-62 bg-white p-4 rounded-2xl">
+                                <span class="text-orange text-lg font-semibold">02</span>
                                 <div
-                                    class="border border-whiteborder rounded-2xl h-auto w-auto max-w-56 p-4 hover:bg-white group flex flex-row items-center gap-5">
-                                    <div class="appleIcon">
-                                        <i class="fa-brands fa-google-play text-white group-hover:text-black"></i>
-                                    </div>
-                                    <div class="content flex flex-col font-poppins">
-                                        <span class="text-whiteborder group-hover:text-black text-sm">Get it on</span>
-                                        <span class="text-white group-hover:text-black font-medium -mt-0.5">Google Play
-                                            Store</span>
-                                    </div>
+                                    class="bg-primary h-14 w-14 text-orange flex justify-center items-center rounded-full text-lg my-5">
+                                    <i class="fa-solid fa-bowl-food"></i>
                                 </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="flex-1">
-                        <img src="assets/ember.webp" alt="ember"
-                            class="md:h-90 h-60 w-full md:w-120 object-cover rounded-2xl" height="900" width="1200" loading="lazy">
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="faq">
-            <div class="container">
-                <div class="flex flex-col items-center">
-                    <span class="text-orange font-poppins font-semibold text-lg" style="font-variant: small-caps;">good
-                        to know</span>
-                    <span class="text-slate-950 font-bold text-2xl">Frequently Asked Questions</span>
-                    <!-- Question 1 -->
-                    <div
-                        class="question1 flex flex-col gap-2 mt-4 py-3 border-b border-whiteborder w-full md:w-130 cursor-pointer">
-                        <div class="flex justify-between items-center">
-                            <span class="text-salte-950 font-poppins font-semibold">How long does delivery usually
-                                take?</span>
-                            <i class="fa-solid fa-angle-down text-orange"></i>
-                        </div>
-                    </div>
-                    <!-- Question 2 -->
-                    <div
-                        class="question2 flex flex-col gap-2 mt-4 py-3 border-b border-whiteborder w-full md:w-130 cursor-pointer">
-                        <div class="flex justify-between items-center">
-                            <span class="text-salte-950 font-poppins font-semibold">Do you cater to dietary
-                                restrictions?</span>
-                            <i class="fa-solid fa-angle-down text-orange"></i>
-                        </div>
-                    </div>
-                    <!-- Question 3 -->
-                    <div
-                        class="question3 flex flex-col gap-2 mt-4 py-3 border-b border-whiteborder w-full md:w-130 cursor-pointer">
-                        <div class="flex justify-between items-center">
-                            <span class="text-salte-950 font-poppins font-semibold">Can i schedule an order for
-                                later?</span>
-                            <i class="fa-solid fa-angle-down text-orange"></i>
-                        </div>
-                    </div>
-                    <!-- Question 4 -->
-                    <div
-                        class="question4 flex flex-col gap-2 mt-4 py-3 border-b border-whiteborder w-full md:w-130 cursor-pointer">
-                        <div class="flex justify-between items-center">
-                            <span class="text-salte-950 font-poppins font-semibold">What if something arrives wrong or
-                                cold?</span>
-                            <i class="fa-solid fa-angle-down text-orange"></i>
-                        </div>
-                    </div>
+                                <span class="text-slate-950 text-xl font-semibold">We fire your ticket</span>
+                                <span class="tex leading-5 font-poppins font-light text-sm">The nearest kitchens
+                                    starts 000 king on confirmation.</span>
+                            </div>
 
-                </div>
-            </div>
-        </section>
-        <section id="contact" class="bg-[#ff4000] rounded-2xl mb-25">
-            <div class="container">
-                <div class="flex flex-col md:flex-row md:px-10 px-3">
-                    <div class="flex justify-between flex-col md:flex-row gap-24">
-                        <div class="left flex flex-col">
-                            <span class="text-white text-2xl font-bold">Get first access to new dishes.</span>
-                            <span class="text-whiteborder -mt-1 font-poppins font-medium">One email a week new drops,
-                                chef specials, free desserts.</span>
-                        </div>
-                        <div class="right flex-1">
-                            <form action="" method="get" class="flex flex-col gap-3.5">
+                            <div class="flex flex-col h-auto w-auto min-w-62 bg-white p-4 rounded-2xl">
+                                <span class="text-orange text-lg font-semibold">03</span>
+                                <div
+                                    class="bg-primary h-14 w-14 text-orange flex justify-center items-center rounded-full text-lg my-5">
+                                    <i class="fa-solid fa-pizza-slice"></i>
+                                </div>
+                                <span class="text-slate-950 text-xl font-semibold">A rider picks it up</span>
+                                <span class="text-ink leading-5 font-poppins font-light text-sm">Insulated bugs keep
+                                    temperature and presentation infact.</span>
+                            </div>
 
-                                <input type="email" name="email" id="email"
-                                    class="bg-white rounded-full px-5 py-5 placeholder:text-whiteborder focus:outline-none font-poppins w-full md:w-96"
-                                    placeholder="you@gmail.com" required>
-                                <button type="submit"
-                                    class="bg-primary w-full cursor-pointer active:bg-green-950 font-poppins font-medium text-smbg-primary text-white h-12 rounded-full">Subscribe</button>
-                            </form>
+                            <div class="flex flex-col h-auto w-auto min-w-62 bg-white p-4 rounded-2xl">
+                                <span class="text-orange text-lg font-semibold">04</span>
+                                <div
+                                    class="bg-primary h-14 w-14 text-orange flex justify-center items-center rounded-full text-lg my-5">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <span class="text-slate-950 text-xl font-semibold">Track and enjoy</span>
+                                <span class="text-ink leading-5 font-poppins font-light text-sm">Live tracking most
+                                    orders and under 32 minutes.</span>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-    </div>
+        <section id="location" class="bg-[#efe8da]">
+            <div class="container">
+                <div class="flex justify-between gap-10 lg:flex-row flex-col">
+                    <div class="flex flex-col max-w-130">
+                        <div class="flex flex-col items-center md:items-start">
+                            <span class="h-0.5 w-7 bg-orange rounded-full ml-1"></span>
+                            <span class="text-orange font-poppins font-semibold -mt-1 ml-1"
+                                style="font-variant: small-caps;">where we deliver</span>
+                        </div>
+                        <div class="mt-2 md:mt-0">
+                            <span class="text-3xl font-bold text-slate-950">Six kitchens, citywide
+                                coverage.</span>
+                            <p class="text-ink font-poppins mt-1.5">Each kitchen serves a 5km radius so food travels
+                                loss
+                                and arrives hotter. Enter a postcode to confirm.</p>
+
+                            <!-- Location Icons -->
+                            <div class="grid md:grid-cols-3 grid-cols-2  gap-3 mt-12">
+                                <div
+                                    class="flex flex-row justify-center items-center gap-2 p-2 w-auto max-w-40 bg-white rounded-full border border-whiteborder">
+                                    <i class="fa-solid fa-location-dot text-orange"></i>
+                                    <span class="font-poppins font-medium">Riverside</span>
+                                </div>
+
+                                <div
+                                    class="flex flex-row justify-center items-center gap-2 p-2 w-auto max-w-40 bg-white rounded-full border border-whiteborder">
+                                    <i class="fa-solid fa-location-dot text-orange"></i>
+                                    <span class="font-poppins font-medium">Milibrock</span>
+                                </div>
+
+                                <div
+                                    class="flex flex-row justify-center items-center gap-2 p-2 w-auto max-w-40 bg-white rounded-full border border-whiteborder">
+                                    <i class="fa-solid fa-location-dot text-orange"></i>
+                                    <span class="font-poppins font-medium">CtdTown</span>
+                                </div>
+
+                                <div
+                                    class="flex flex-row justify-center items-center gap-2 p-2 w-auto max-w-40 bg-white rounded-full border border-whiteborder">
+                                    <i class="fa-solid fa-location-dot text-orange"></i>
+                                    <span class="font-poppins font-medium">Northgate</span>
+                                </div>
+
+                                <div
+                                    class="flex flex-row justify-center items-center gap-2 p-2 w-auto max-w-40 bg-white rounded-full border border-whiteborder">
+                                    <i class="fa-solid fa-location-dot text-orange"></i>
+                                    <span class="font-poppins font-medium">Fairview</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Map -->
+                    <div id="map" class="map w-full h-100 rounded-2xl z-10"></div>
+                </div>
+            </div>
+
+        </section>
+        <div class="container">
+            <section id="unknown" class="bg-primary rounded-4xl mt-25">
+                <div class="flex flex-col px-4 md:px-14">
+                    <div class="flex flex-col items-center md:items-start">
+
+                        <span class="h-0.5 w-7 bg-orange rounded-full ml-1"></span>
+                        <span class="text-orange font-poppins font-semibold -mt-1 ml-1"
+                            style="font-variant: small-caps;">the ember app</span>
+                    </div>
+                    <div class="flex justify-between flex-col lg:flex-row gap-12">
+                        <div class="left flex-1">
+                            <span class="text-3xl font-bold text-white">Order faster. Track live. Save your
+                                favourites.</span>
+                            <p class="text-lightwhite font-poppins text-sm mt-6">Reorder in two taps, split delivery
+                                with a
+                                friend, and watch your rider approach in real time.</p>
+                            <!-- Download Way -->
+                            <div class="mt-8 flex md:flex-row flex-col gap-5">
+                                <a href="">
+                                    <div
+                                        class="border border-whiteborder rounded-2xl h-auto w-auto max-w-52 p-4 hover:bg-white group flex flex-row items-center gap-5">
+                                        <div class="appleIcon">
+                                            <i class="fa-brands fa-apple text-white group-hover:text-black"></i>
+                                        </div>
+                                        <div class="content flex flex-col font-poppins">
+                                            <span class="text-whiteborder group-hover:text-black text-sm">Download on
+                                                the</span>
+                                            <span class="text-white group-hover:text-black font-medium -mt-0.5">Apple
+                                                Store</span>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="">
+                                    <div
+                                        class="border border-whiteborder rounded-2xl h-auto w-auto max-w-56 p-4 hover:bg-white group flex flex-row items-center gap-5">
+                                        <div class="appleIcon">
+                                            <i class="fa-brands fa-google-play text-white group-hover:text-black"></i>
+                                        </div>
+                                        <div class="content flex flex-col font-poppins">
+                                            <span class="text-whiteborder group-hover:text-black text-sm">Get it
+                                                on</span>
+                                            <span class="text-white group-hover:text-black font-medium -mt-0.5">Google
+                                                Play
+                                                Store</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <img src="assets/ember.webp" alt="ember"
+                                class="lg:h-90 h-60 w-full lg:w-120 object-cover rounded-2xl" height="900" width="1200"
+                                loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="faq">
+                <div class="container">
+                    <div class="flex flex-col items-center">
+                        <span class="text-orange font-poppins font-semibold text-lg"
+                            style="font-variant: small-caps;">good
+                            to know</span>
+                        <span class="text-slate-950 font-bold text-2xl">Frequently Asked Questions</span>
+                        <!-- Question 1 -->
+                        <div
+                            class="question1 faqitems flex flex-col gap-2 mt-4 py-3 border-b border-whiteborder w-full md:w-130 cursor-pointer">
+                            <div class="flex justify-between items-center">
+                                <span class="text-salte-950 font-poppins font-semibold">How long does delivery usually
+                                    take?</span>
+                                <i class="fa-solid fa-angle-down text-orange duration-500"></i>
+                            </div>
+                            <p
+                                class="font-poppins ans opacity-0 max-h-0 overflow-hidden transition-all duration-700 -mt-1 w-4/5 text-ink">
+                                Most orders arrive within 25-35 minutes depending on distance from the nearest kitchen.
+                            </p>
+                        </div>
+                        <!-- Question 2 -->
+                        <div
+                            class="question2 faqitems flex flex-col gap-2 mt-4 py-3 border-b border-whiteborder w-full md:w-130 cursor-pointer">
+                            <div class="flex justify-between items-center">
+                                <span class="text-salte-950 font-poppins font-semibold">Do you cater to dietary
+                                    restrictions?</span>
+                                <i class="fa-solid fa-angle-down text-orange"></i>
+                            </div>
+                            <p
+                                class="font-poppins ans opacity-0 max-h-0 overflow-hidden transition-all duration-700 -mt-1 w-4/5 text-ink">
+                                Yes! We offer vegetarian and other dietary-friendly options. Please check the menu
+                                details
+                                or contact us about specific dietary requirements.</p>
+
+                        </div>
+                        <!-- Question 3 -->
+                        <div
+                            class="question3 faqitems flex flex-col gap-2 mt-4 py-3 border-b border-whiteborder w-full md:w-130 cursor-pointer">
+                            <div class="flex justify-between items-center">
+                                <span class="text-salte-950 font-poppins font-semibold">Can i schedule an order for
+                                    later?</span>
+                                <i class="fa-solid fa-angle-down text-orange"></i>
+                            </div>
+                            <p
+                                class="font-poppins ans opacity-0 max-h-0 overflow-hidden transition-all duration-700 -mt-1 w-4/5 text-ink">
+                                Yes! You can schedule your order in advance and choose a convenient delivery time,
+                                subject
+                                to availability.</p>
+                        </div>
+                        <!-- Question 4 -->
+                        <div
+                            class="question4 faqitems flex flex-col gap-2 mt-4 py-3 border-b border-whiteborder w-full md:w-130 cursor-pointer">
+                            <div class="flex justify-between items-center">
+                                <span class="text-salte-950 font-poppins font-semibold">What if something arrives wrong
+                                    or
+                                    cold?</span>
+                                <i class="fa-solid fa-angle-down text-orange"></i>
+                            </div>
+                            <p
+                                class="font-poppins ans opacity-0 max-h-0 overflow-hidden transition-all duration-700 -mt-1 w-4/5 text-ink">
+                                We're sorry if your order isn't right! Please contact our support team with your order
+                                details, and we'll help resolve the issue as quickly as possible.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section id="contact" class="bg-orange rounded-2xl mb-25">
+                <div class="container">
+                    <div class="flex flex-col md:flex-row md:px-10 px-3">
+                        <div class="flex justify-between flex-col md:flex-row gap-24">
+                            <div class="left flex flex-col">
+                                <span class="text-white text-2xl font-bold">Get first access to new dishes.</span>
+                                <span class="text-whiteborder -mt-1 font-poppins font-medium">One email a week new
+                                    drops,
+                                    chef specials, free desserts.</span>
+                            </div>
+                            <div class="right flex-1">
+                                <form action="" method="get" class="flex flex-col gap-3.5">
+
+                                    <input type="email" name="email" id="email"
+                                        class="bg-white rounded-full px-5 py-5 placeholder:text-whiteborder focus:outline-none font-poppins w-full md:w-96"
+                                        placeholder="you@gmail.com" required>
+                                    <button type="submit"
+                                        class="bg-primary w-full cursor-pointer active:bg-green-950 font-poppins font-medium text-smbg-primary text-white h-12 rounded-full">Subscribe</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
     <footer class="bg-primary border-t border-whiteborder h-auto p-5">
         <div class="container">
-            <div class="flex flex-col text-center md:text-start md:flex-row md:justify-between text-whiteborder font-poppins md:items-center ">
+            <div
+                class="flex flex-col text-center md:text-start md:flex-row md:justify-between text-whiteborder font-poppins md:items-center ">
                 <div class="copyright">
                     <span class="font-light">&copy; 2026 Ember Cloud Kitchens, All rights reserved</span>
                 </div>
@@ -900,5 +991,7 @@
         </div>
     </footer>
     <script src="index.js" defer></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </body>
+
 </html>
