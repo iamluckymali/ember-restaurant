@@ -75,70 +75,7 @@ overlay2.addEventListener("click", cardCloseSideBar);
 
 const foodCont = document.querySelectorAll(".foodCont")
 const cartItems = document.querySelector(".cartItems");
-const itemsCount = document.querySelector("#items")
-let totalItems = 0;
-
-foodCont.forEach((container) => {
-
-    container.addEventListener("click", (event) => {
-
-        if (event.target.closest(".addBtn")) {
-            const card = event.target.closest(".card");
-            const imgSrc = card.querySelector("img").src;
-            const foodName = card.querySelector(".foodname").innerText
-            const foodPrice = card.querySelector(".foodprice").innerText;
-            const basePrice = parseFloat(foodPrice.replace(/[^0-9.]/g, ''));
-            totalItems++
-            itemsCount.innerHTML = totalItems;
-
-            const cartDiv = document.createElement("div");
-            cartDiv.className = `flex flex-col md:flex-row gap-3 mt-5 p-3 border-b border-whiteborder`
-            cartDiv.innerHTML = `
-            <div class="img">
-            <img src="${imgSrc}" alt="cart1Img" class="h-30 w-30 rounded-lg" height="120" width="120">
-            </div>
-            <div class="food-info flex flex-col">
-                                    <span class="text-sm mb-2">${foodName}</span>
-                                    <div class="flex flex-row gap-4 items-center mt-1">
-                                    <button class="minusBtn h-10 w-10 border border-whiteborder rounded-full cursor-pointer active:bg-[#e7e2d7]">
-                                    <i class="fa-solid fa-minus text-sm"></i>
-                                    </button>
-                                    <span class="quantityNumber">1</span>
-                                    <button class="plusBtn h-10 w-10 border border-whiteborder rounded-full cursor-pointer active:bg-[#e7e2d7]">
-                                    <i class="fa-solid fa-plus text-sm"></i>
-                                    </button>
-                                    <span class="font-medium price mx-auto">${foodPrice}</span>
-                                    </div>
-                                    </div>
-                                    </div>`;
-            cartItems.appendChild(cartDiv);
-            const plusBtn = cartDiv.querySelector(".plusBtn");
-            const minusBtn = cartDiv.querySelector(".minusBtn");
-            const quanNum = cartDiv.querySelector(".quantityNumber");
-            const price = cartDiv.querySelector(".price");
-            let qty = 1;
-            function changeQuantity() {
-                plusBtn.addEventListener("click", () => {
-                    qty++;
-                    quanNum.innerHTML = qty;
-                    let finalPrice = basePrice * qty;
-                    price.innerHTML = finalPrice
-                })
-                minusBtn.addEventListener("click", () => {
-                    if (qty > 1) {
-                        qty--;
-                    }
-                    quanNum.innerHTML = qty;
-                    let finalPrice = basePrice * qty;
-                    price.innerHTML = `$${finalPrice.toFixed(2)}`
-                })
-            }
-            changeQuantity();
-        };
-
-    });
-});
-
+const itemsCount = document.querySelector("#items");
 const seeFullMenuBtn = document.querySelectorAll(".seeFullMenu");
 const otherCards = document.querySelector(".otherCards");
 
@@ -156,4 +93,85 @@ ScrollReveal().reveal('.card,#popularCate,#recommend,#review,#about,#location,#u
     duration: 500,
     opacity: 0.2,
     viewFactor: 0.01
+});
+
+
+const products = [
+    { id: 1, name: "Veggie Crunch Burger", price: 199, img: "assets/burger.webp" },
+    { id: 2, name: "Paneer Zinger Burger", price: 249, img: "assets/veg.webp" },
+    { id: 3, name: "Cheese Jalpeno Fries", price: 179, img: "assets/kadai-paneer-recipe.webp" },
+    { id: 4, name: "Peri Peri Fries", price: 149, img: "assets/instant-pot-dal-rice-recipe.webp" },
+    { id: 5, name: "Paneer Butter Masala", price: 329, img: "assets/burger.webp" },
+    { id: 6, name: "Dal Tadka and Jeera Rice", price: 249, img: "assets/burger.webp" },
+    { id: 7, name: "Shahi Paneer Handi", price: 349, img: "assets/burger.webp" },
+    { id: 8, name: "Kadhai Mushroom and Roti", price: 299, img: "assets/burger.webp" },
+    { id: 9, name: "Paneer Tikka Roll", price: 249, img: "assets/burger.webp" },
+    { id: 10, name: "Noodles Manchurian", price: 279, img: "assets/veg.webp" },
+    { id: 11, name: "White Sauce Creamy Pasta", price: 299, img: "assets/kadai-paneer-recipe.webp" },
+    { id: 12, name: "Chole Bhature Combo", price: 229, img: "assets/instant-pot-dal-rice-recipe.webp" },
+];
+let cart = [];
+const addBtn = document.querySelectorAll(".addBtn");
+addBtn.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const id = Number(btn.dataset.id)
+        let selectedProducts = products.find(item => item.id === id)
+        const existingProduct = cart.find(item => item.id === id);
+        if (existingProduct) {
+            existingProduct.quantity++;
+            const row = cartItems.querySelector(`[data-id="${id}"]`);
+            const qty = row.querySelector(".quantityNumber");
+            const price = row.querySelector(".price");
+
+            qty.textContent = existingProduct.quantity
+            price.textContent = `₹${existingProduct.price * existingProduct.quantity}`
+
+        } else {
+            cart.push({
+                ...selectedProducts,
+                quantity: 1
+            });
+            itemsCount.textContent = cart.length;
+            const div = document.createElement("div");
+            div.dataset.id = id;
+            div.className = `flex flex-col md:flex-row gap-2 border-b border-amber-700 text-black mt-5`;
+            div.innerHTML = `
+            <div class="food-info flex flex-col md:flex-row gap-3 pb-5 justify-center"> 
+                <img src="${selectedProducts.img}" class="h-40 w-72 object-cover md:h-24 md:w-24 rounded-lg"> 
+                <div class="flex flex-col">
+                    <span class="font-medium text-center md:text-start mt-3">${selectedProducts.name}</span>
+                    <div class="flex flex-row justify-center gap-4 items-center mt-3 pb-3">
+                        <button class="minusBtn h-10 w-10 border border-whiteborder rounded-full cursor-pointer active:bg-[#e7e2d7]">
+                        <i class="fa-solid fa-minus text-sm"></i>
+                        </button>
+                        <span class="quantityNumber">1</span>
+                        <button class="plusBtn h-10 w-10 border border-whiteborder rounded-full cursor-pointer active:bg-[#e7e2d7]">
+                        <i class="fa-solid fa-plus text-sm"></i>
+                        </button>
+                        <span class="font-medium price mx-auto price">₹${selectedProducts.price}</span>
+                    </div>
+                </div>
+            </div>`;
+            const price = div.querySelector(".price")
+            const qty = div.querySelector(".quantityNumber");
+            const minusBtn = div.querySelector(".minusBtn");
+            const plusBtn = div.querySelector(".plusBtn");
+            plusBtn.addEventListener('click', () => {
+                const item = cart.find(item => item.id === id);
+                item.quantity++;
+                qty.innerHTML = item.quantity;
+                price.textContent = `₹${item.price * item.quantity}`
+
+            });
+            minusBtn.addEventListener('click', () => {
+                const item = cart.find(item => item.id === id);
+                if (item.quantity > 1) {
+                    item.quantity--;
+                    qty.innerHTML = item.quantity;
+                    price.textContent = `₹${item.price * item.quantity}`
+                }
+            });
+            cartItems.appendChild(div)
+        }
+    });
 });
