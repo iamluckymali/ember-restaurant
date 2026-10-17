@@ -161,7 +161,7 @@
                         <div class="flex flex-row gap-3 mt-8">
 
                             <a href="#sellers"
-                                class="bg-orange active:bg-amber-800 flex justify-center items-center h-12 w-36 text-white font-poppins text-sm font-medium rounded-full cursor-pointer">Order
+                                class="bg-[#ce5f0f] hover:bg-orange active:bg-amber-800 flex justify-center items-center h-12 w-36 text-white font-poppins text-sm font-medium rounded-full cursor-pointer">Order
                                 Now</a>
                             <a href="#featuredDishes"
                                 class="border border-black hover:bg-icon active:bg-[#ded9ce] flex justify-center items-center h-12 w-36 font-poppins text-sm font-medium rounded-full cursor-pointer"
@@ -189,9 +189,9 @@
                     </div>
                     <!-- Right Side Part -->
                     <div class="rightSide flex flex-col overflow-hidden rounded-2xl">
-                        <img src="assets/pizza.webp" alt="pizza"
+                        <img src="assets/pizza.webp" alt="Delicious Pizza"
                             class="rounded-2xl object-cover lg:h-full h-80 w-full lg:max-w-130 hover:scale-110 transition-transform duration-700"
-                            fetchpriority="high" loading="eager" width="520" height="360">
+                            fetchpriority="high" loading="eager" width="520" height="360" decoding="async">
                     </div>
                 </div>
         </section>
@@ -291,89 +291,92 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 gap-y-5 w-full foodCont">
                             <div class="card flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
-                                <img src="assets/burger.webp" alt="burger"
-                                    class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
-                                    height="176">
+                                <img src="assets/Veggie_Crunch_Burger.webp" alt="burger"
+                                    class="h-44 rounded-t-xl w-full object-cover hover:scale-105 transition-all duration-500"
+                                    height="176" width="300" loading="lazy">
                                 <div class="content flex flex-col p-3">
                                     <div class="flex flex-row justify-between items-center">
-                                        <span class="font-semibold foodname">Charred Double Smash</span>
-                                        <span class="font-semibold text-orange font-poppins text-sm ">$ <span
-                                                class="foodprice">14.50</span></span>
+                                        <span class="font-semibold foodname">Veggie Crunch Burger</span>
+                                        <span class="font-semibold text-orange font-poppins text-sm ">₹<span
+                                                class="foodprice">199</span></span>
                                     </div>
-                                    <span class="text-ink -mt-0.5 border-b pb-2.5 border-orange">Lorem ipsum dolor sit
-                                        amet.</span>
+                                    <p class="text-ink border-b pb-2.5 border-orange leading-5 mt-2">Crispy veggie patty
+                                        with lettuce, onions, and creamy mayo in a toasted sesame bun..</p>
                                 </div>
-                                <div class="flex flex-row justify-between items-center p-3">
+                                <div class="flex flex-row justify-between items-center p-3 mt-auto">
                                     <div class="starIcon flex flex-row items-center gap-1.5">
                                         <i class="fa-solid fa-star text-amber-500"></i>
                                         <span class="text-amber-500 font-poppins text-sm font-medium">4.9</span>
                                     </div>
 
                                     <button
-                                        class="bg-slate-900 addBtn text-white font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
-                                            class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
+                                        class="addBtn bg-orange text-white font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-amber-800"
+                                        data-id="1"><i class="fa-solid fa-plus"></i> <span
+                                            class="font-medium">Add</span></button>
                                 </div>
                             </div>
                             <div class="card flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
-                                <img src="assets/veg.webp" alt="burger"
-                                    class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
-                                    height="176">
+                                <img src="assets/burger1.webp" alt="burger"
+                                    class="h-44 rounded-t-xl w-full object-cover hover:scale-105 transition-all duration-500"
+                                    height="176" loading="lazy">
                                 <div class="content flex flex-col p-3">
                                     <div class="flex flex-row justify-between items-center">
-                                        <span class="font-semibold foodname">Heirloom Avocado Toast</span>
-                                        <span class="font-semibold text-orange font-poppins text-sm ">$<span
-                                                class="foodprice">11.00</span></span>
+                                        <span class="font-semibold foodname">Paneer Zinger Burger</span>
+                                        <span class="font-semibold text-orange font-poppins text-sm ">₹<span
+                                                class="foodprice">249</span></span>
                                     </div>
-                                    <span class="text-ink -mt-0.5 border-b pb-2.5 border-orange">Lorem ipsum dolor sit
-                                        amet.</span>
+                                    <p class="text-ink border-b pb-2.5 border-orange leading-5 mt-2">Fiery and crunchy
+                                        paneer patty topped with spicy peri-peri seasoning, jalapeños, and cheese.</p>
                                 </div>
-                                <div class="flex flex-row justify-between items-center p-3">
+                                <div class="flex flex-row justify-between items-center p-3 mt-auto">
                                     <div class="starIcon flex flex-row items-center gap-1.5">
                                         <i class="fa-solid fa-star text-amber-500"></i>
                                         <span class="text-amber-500 font-poppins text-sm font-medium">4.9</span>
                                     </div>
 
                                     <button
-                                        class="bg-slate-900 text-white addBtn font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
-                                            class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
+                                        class="bg-orange text-white addBtn font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-amber-800"
+                                        data-id="2"><i class="fa-solid fa-plus"></i> <span
+                                            class="font-medium">Add</span></button>
                                 </div>
                             </div>
                             <div class="card flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
-                                <img src="assets/kadai-paneer-recipe.webp" alt="burger"
-                                    class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
-                                    height="176">
+                                <img src="assets/CheeseFries.webp" alt="burger"
+                                    class="h-44 rounded-t-xl w-full object-cover hover:scale-105 transition-all duration-500"
+                                    height="176" width="300" loading="lazy">
                                 <div class="content flex flex-col p-3">
                                     <div class="flex flex-row justify-between items-center">
-                                        <span class="font-semibold foodname">Slow Butter Curry</span>
-                                        <span class="font-semibold text-orange font-poppins text-sm ">$<span
-                                                class="foodprice">16.00</span></span>
+                                        <span class="font-semibold foodname">Cheese Jalapeño Fries</span>
+                                        <span class="font-semibold text-orange font-poppins text-sm ">₹<span
+                                                class="foodprice">179</span></span>
                                     </div>
-                                    <span class="text-ink -mt-0.5 border-b pb-2.5 border-orange">Lorem ipsum dolor sit
-                                        amet.</span>
+                                    <p class="text-ink border-b pb-2.5 border-orange leading-5 mt-2">Crispy french fries
+                                        topped with warm melted cheese sauce and spicy jalapeños.</p>
                                 </div>
-                                <div class="flex flex-row justify-between items-center p-3">
+                                <div class="flex flex-row justify-between items-center p-3 mt-auto">
                                     <div class="starIcon flex flex-row items-center gap-1.5">
                                         <i class="fa-solid fa-star text-amber-500"></i>
                                         <span class="text-amber-500 font-poppins text-sm font-medium">4.9</span>
                                     </div>
 
                                     <button
-                                        class="bg-slate-900 text-white addBtn font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
-                                            class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
+                                        class="bg-orange text-white addBtn font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-amber-800"
+                                        data-id="3"><i class="fa-solid fa-plus"></i> <span
+                                            class="font-medium">Add</span></button>
                                 </div>
                             </div>
                             <div class="card flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
-                                <img src="assets/instant-pot-dal-rice-recipe.webp" alt="burger"
-                                    class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
-                                    height="176">
+                                <img src="assets/Peri_Peri_Fries.webp" alt="burger"
+                                    class="h-44 rounded-t-xl w-full object-cover hover:scale-105 transition-all duration-500"
+                                    height="176" loading="lazy">
                                 <div class="content flex flex-col p-3">
                                     <div class="flex flex-row justify-between items-center">
-                                        <span class="font-semibold foodname">Wood-Fired Margherita</span>
-                                        <span class="font-semibold text-orange font-poppins text-sm ">$<span
-                                                class="foodprice">13.50</span></span>
+                                        <span class="font-semibold foodname">Peri Peri Fries</span>
+                                        <span class="font-semibold text-orange font-poppins text-sm ">₹<span
+                                                class="foodprice">149</span></span>
                                     </div>
-                                    <span class="text-ink -mt-0.5 border-b pb-2.5 border-orange">Lorem ipsum dolor sit
-                                        amet.</span>
+                                    <p class="text-ink leading-5 mt-2 border-b pb-2.5 border-orange">Crispy potato fries
+                                        tossed in a zesty, spicy peri-peri seasoning blend. Perfect for snacking!</p>
                                 </div>
                                 <div class="flex flex-row justify-between items-center p-3">
                                     <div class="starIcon flex flex-row items-center gap-1.5">
@@ -382,27 +385,28 @@
                                     </div>
 
                                     <button
-                                        class="bg-slate-900 text-white addBtn font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
-                                            class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
+                                        class="bg-orange text-white addBtn font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-amber-800"
+                                        data-id="4"><i class="fa-solid fa-plus"></i> <span
+                                            class="font-medium">Add</span></button>
                                 </div>
                             </div>
-                            <div class="flex-col md:flex-row gap-x-12 gap-y-5 otherCards hidden">
+                            <div class="flex-col md:flex-row gap-x-12 gap-y-5 otherCards hidden items-start">
 
 
                                 <div
                                     class="cards flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
-                                    <img src="assets/burger.webp" alt="burger"
-                                        class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
-                                        height="176">
+                                    <img src="assets/Paneer_Butter_Masala.webp" alt="burger"
+                                        class="h-44 rounded-t-xl w-full object-cover hover:scale-105 transition-all duration-500"
+                                        height="176" width="300" loading="lazy">
                                     <div class="content flex flex-col p-3">
                                         <div class="flex flex-row justify-between items-center">
-                                            <span class="font-semibold foodname">Charred Double Smash</span>
-                                            <span class="font-semibold text-orange font-poppins text-sm ">$ <span
-                                                    class="foodprice">14.50</span></span>
+                                            <span class="font-semibold foodname">Paneer Butter Masala</span>
+                                            <span class="font-semibold text-orange font-poppins text-sm ">₹<span
+                                                    class="foodprice">329</span></span>
                                         </div>
-                                        <span class="text-ink -mt-0.5 border-b pb-2.5 border-orange">Lorem ipsum dolor
-                                            sit
-                                            amet.</span>
+                                        <p class="text-ink leading-5 mt-2 border-b pb-2.5 border-orange">Soft paneer
+                                            cubes in a rich tomato-butter gravy, served with fresh butter naan and
+                                            salad.</p>
                                     </div>
                                     <div class="flex flex-row justify-between items-center p-3">
                                         <div class="starIcon flex flex-row items-center gap-1.5">
@@ -411,26 +415,26 @@
                                         </div>
 
                                         <button
-                                            class="bg-slate-900 addBtn text-white font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
-                                                class="fa-solid fa-plus"></i> <span
+                                            class="bg-orange addBtn text-white font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-amber-800"
+                                            data-id="5"><i class="fa-solid fa-plus"></i> <span
                                                 class="font-medium">Add</span></button>
                                     </div>
                                 </div>
 
                                 <div
                                     class="cards flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
-                                    <img src="assets/burger.webp" alt="burger"
-                                        class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
-                                        height="176">
+                                    <img src="assets/Dal_Tadka_Jeera_Rice.webp" alt="burger"
+                                        class="h-44 rounded-t-xl w-full object-cover hover:scale-105 transition-all duration-500"
+                                        height="176" loading="lazy">
                                     <div class="content flex flex-col p-3">
                                         <div class="flex flex-row justify-between items-center">
-                                            <span class="font-semibold foodname">Charred Double Smash</span>
-                                            <span class="font-semibold text-orange font-poppins text-sm ">$ <span
-                                                    class="foodprice">14.50</span></span>
+                                            <span class="font-semibold foodname">Dal Tadka and Jeera Rice</span>
+                                            <span class="font-semibold text-orange font-poppins text-sm ">₹<span
+                                                    class="foodprice">249</span></span>
                                         </div>
-                                        <span class="text-ink -mt-0.5 border-b pb-2.5 border-orange">Lorem ipsum dolor
-                                            sit
-                                            amet.</span>
+                                        <p class="text-ink leading-5 mt-2 border-b pb-2.5 border-orange">Smoky yellow
+                                            lentils tempered with garlic, cumin, and ghee, paired with fragrant jeera
+                                            rice.</p>
                                     </div>
                                     <div class="flex flex-row justify-between items-center p-3">
                                         <div class="starIcon flex flex-row items-center gap-1.5">
@@ -439,26 +443,25 @@
                                         </div>
 
                                         <button
-                                            class="bg-slate-900 addBtn text-white font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
-                                                class="fa-solid fa-plus"></i> <span
+                                            class="bg-orange addBtn text-white font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-amber-800"
+                                            data-id="6"><i class="fa-solid fa-plus"></i> <span
                                                 class="font-medium">Add</span></button>
                                     </div>
                                 </div>
 
                                 <div
                                     class="cards flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
-                                    <img src="assets/burger.webp" alt="burger"
-                                        class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
-                                        height="176">
+                                    <img src="assets/Shahi_Paneer_Handi.webp" alt="burger"
+                                        class="h-44 rounded-t-xl w-full object-cover hover:scale-105 transition-all duration-500"
+                                        height="176" loading="lazy">
                                     <div class="content flex flex-col p-3">
                                         <div class="flex flex-row justify-between items-center">
-                                            <span class="font-semibold foodname">Charred Double Smash</span>
-                                            <span class="font-semibold text-orange font-poppins text-sm ">$ <span
-                                                    class="foodprice">14.50</span></span>
+                                            <span class="font-semibold foodname">Shahi Paneer Handi</span>
+                                            <span class="font-semibold text-orange font-poppins text-sm ">₹<span
+                                                    class="foodprice">349</span></span>
                                         </div>
-                                        <span class="text-ink -mt-0.5 border-b pb-2.5 border-orange">Lorem ipsum dolor
-                                            sit
-                                            amet.</span>
+                                        <p class="text-ink leading-5 mt-2 border-b pb-2.5 border-orange">Rich Mughlai
+                                            cashew-tomato curry with tender paneer and spices.</p>
                                     </div>
                                     <div class="flex flex-row justify-between items-center p-3">
                                         <div class="starIcon flex flex-row items-center gap-1.5">
@@ -467,26 +470,25 @@
                                         </div>
 
                                         <button
-                                            class="bg-slate-900 addBtn text-white font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
-                                                class="fa-solid fa-plus"></i> <span
+                                            class="bg-orange addBtn text-white font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-amber-800"
+                                            data-id="7"><i class="fa-solid fa-plus"></i> <span
                                                 class="font-medium">Add</span></button>
                                     </div>
                                 </div>
 
                                 <div
                                     class="cards flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
-                                    <img src="assets/burger.webp" alt="burger"
-                                        class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
-                                        height="176">
+                                    <img src="assets/Kadhai_Mushroom_Roti.webp" alt="burger"
+                                        class="h-44 rounded-t-xl w-full object-cover hover:scale-105 transition-all duration-500"
+                                        height="176" loading="lazy">
                                     <div class="content flex flex-col p-3">
                                         <div class="flex flex-row justify-between items-center">
-                                            <span class="font-semibold foodname">Charred Double Smash</span>
-                                            <span class="font-semibold text-orange font-poppins text-sm ">$ <span
-                                                    class="foodprice">14.50</span></span>
+                                            <span class="font-semibold foodname">Kadhai Mushroom and Roti</span>
+                                            <span class="font-semibold text-orange font-poppins text-sm ">₹<span
+                                                    class="foodprice">299</span></span>
                                         </div>
-                                        <span class="text-ink -mt-0.5 border-b pb-2.5 border-orange">Lorem ipsum dolor
-                                            sit
-                                            amet.</span>
+                                        <p class="text-ink leading-5 mt-2 border-b pb-2.5 border-orange">Spicy mushroom
+                                            and bell pepper gravy served with warm tandoori rotis.</p>
                                     </div>
                                     <div class="flex flex-row justify-between items-center p-3">
                                         <div class="starIcon flex flex-row items-center gap-1.5">
@@ -495,8 +497,8 @@
                                         </div>
 
                                         <button
-                                            class="bg-slate-900 addBtn text-white font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
-                                                class="fa-solid fa-plus"></i> <span
+                                            class="bg-orange addBtn text-white font-poppins px-4 py-2 rounded-full cursor-pointer active:bg-amber-800"
+                                            data-id="8"><i class="fa-solid fa-plus"></i> <span
                                                 class="font-medium">Add</span></button>
                                     </div>
                                 </div>
@@ -519,7 +521,7 @@
                     <div class="image">
                         <img src="assets/chef-cooking-kitchen-while-wearing-professional-attire.webp" alt="chefcooking"
                             class="md:h-105 h-60 w-full object-cover rounded-2xl overflow-hidden" height="1050"
-                            width="1200" loading="lazy">
+                            width="1200" loading="lazy" decoding="async">
                     </div>
                     <!-- Right -->
                     <div class="flex flex-col flex-1">
@@ -538,33 +540,36 @@
                         <!-- Positive Points -->
                         <div class="flex flex-col mt-10 gap-4">
 
-                            <div class="flex flex-col md:flex-row gap-3 pb-5 border-b border-whiteborder">
+                            <div class="flex flex-row gap-3 pb-5 border-b border-whiteborder">
                                 <div class="icon h-14 w-14 bg-[#f4d7c1] flex justify-center items-center rounded-full">
                                     <i class="fa-solid fa-shield-halved text-orange"></i>
                                 </div>
                                 <div class="flex flex-col justify-center">
-                                    <span class="text-slate-950 text-xl font-bold">Quality controlled</span>
-                                    <span class="-mt-1">Every kitchen follows one recipe book and standard.</span>
+                                    <span class="text-slate-950 text-lg md:text-xl font-bold">Quality controlled</span>
+                                    <span class="-mt-1 text-sm md:text-base">Every kitchen follows one recipe book and
+                                        standard.</span>
                                 </div>
                             </div>
 
-                            <div class="flex flex-col md:flex-row gap-3 pb-5 border-b border-whiteborder">
+                            <div class="flex flex-row gap-3 pb-5 border-b border-whiteborder">
                                 <div class="icon h-14 w-14 bg-[#f4d7c1] flex justify-center items-center rounded-full">
                                     <i class="fa-solid fa-clock text-orange"></i>
                                 </div>
                                 <div class="flex flex-col justify-center">
-                                    <span class="text-slate-950 text-xl font-bold">Cooked on order</span>
-                                    <span class="-mt-1">Nothing is pre-made your ticket fires at checkout.</span>
+                                    <span class="text-slate-950 text-lg md:text-xl font-bold">Cooked on order</span>
+                                    <span class="-mt-1 text-sm md:text-base">Nothing is pre-made your ticket fires at
+                                        checkout.</span>
                                 </div>
                             </div>
 
-                            <div class="flex flex-col md:flex-row gap-3 pb-5 border-b border-whiteborder">
+                            <div class="flex flex-row gap-3 pb-5 border-b border-whiteborder">
                                 <div class="icon h-14 w-14 bg-[#f4d7c1] flex justify-center items-center rounded-full">
                                     <i class="fa-solid fa-feather-pointed text-orange"></i>
                                 </div>
                                 <div class="flex flex-col justify-center">
                                     <span class="text-slate-950 text-xl font-bold">Sourced with Care</span>
-                                    <span class="-mt-1">Produce from regional growers, twice a week.</span>
+                                    <span class="-mt-1 text-sm md:text-base">Produce from regional growers, twice a
+                                        week.</span>
                                 </div>
                             </div>
                         </div>
@@ -584,33 +589,22 @@
                     <div class="flex flex-row justify-center md:justify-start">
                         <span class="text-slate-950 text-3xl font-bold">Best Sellers</span>
                     </div>
-                    <!-- Filter Buttons -->
-                    <div class="flex flex-row gap-3 md:mt-0 mt-4">
-                        <button id="all"
-                            class="bg-primary text-white font-poppins font-medium rounded-full h-10 w-24 cursor-pointer active:bg-[#154b3f]">All</button>
-                        <button id="bowls"
-                            class="bg-icon border border-whiteborder text-slate-950 font-poppins font-medium rounded-full h-10 w-24 cursor-pointer active:bg-primary active:text-white">Bowls</button>
-                        <button id="burger"
-                            class="bg-icon border border-whiteborder text-slate-950 font-poppins font-medium rounded-full h-10 w-24 cursor-pointer active:bg-primary active:text-white">Burger</button>
-                        <button id="curies"
-                            class="bg-icon border border-whiteborder text-slate-950 font-poppins font-medium rounded-full h-10 w-24 cursor-pointer active:bg-primary active:text-white">Curies</button>
-                    </div>
+
                 </div>
                 <!-- Grid -->
                 <div class="flex flex-col mt-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 gap-y-5 foodCont">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 gap-y-5 foodCont items-start">
                         <div class="card flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
-                            <img src="assets/burger.webp" alt="burger"
-                                class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
-                                height="176">
+                            <img src="assets/Paneer_Tikka_Roll.webp" alt="burger"
+                                class="h-44 w-full rounded-t-xl object-cover hover:scale-105 transition-all duration-500"
+                                height="176" loading="lazy">
                             <div class="content flex flex-col p-3">
                                 <div class="flex flex-row justify-between items-center">
-                                    <span class="font-semibold foodname">Charred Double Smash</span>
-                                    <span class="font-semibold text-orange font-poppins text-sm ">$<span
-                                            class="foodprice">14.50</span></span>
+                                    <span class="font-semibold foodname">Paneer Tikka Roll</span>
+                                    <span class="font-semibold text-orange font-poppins text-sm ">₹<span
+                                            class="foodprice">249</span></span>
                                 </div>
-                                <div
-                                    class="flex flex-row items-center font-poppins gap-3 mt-2 border-b pb-3 border-orange">
+                                <div class="flex flex-row items-center font-poppins gap-3 mt-2">
                                     <div class="time flex items-center gap-1">
                                         <i class="fa-solid fa-clock text-[#747373] font-semibold"></i>
                                         <span class="text-xs text-[#747373] font-medium">15-22 min</span>
@@ -620,6 +614,8 @@
                                         <span class="text-xs text-[#747373] font-medium">Medium</span>
                                     </div>
                                 </div>
+                                <p class="text-ink mt-3.5 leading-5 border-b pb-2.5 border-orange ">Smoky charred
+                                    paneer, crisp onions, capsicum, and mint mayo wrapped in a soft roomali roti.</p>
                             </div>
                             <div class="flex flex-row justify-between items-center p-3">
                                 <div class="starIcon flex flex-row items-center gap-1.5">
@@ -628,22 +624,22 @@
                                 </div>
 
                                 <button
-                                    class="bg-slate-900 text-white font-poppins addBtn px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
-                                        class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
+                                    class="bg-orange text-white font-poppins addBtn px-4 py-2 rounded-full cursor-pointer active:bg-amber-800"
+                                    data-id="9"><i class="fa-solid fa-plus"></i> <span
+                                        class="font-medium">Add</span></button>
                             </div>
                         </div>
                         <div class="card flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
-                            <img src="assets/veg.webp" alt="burger"
-                                class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
-                                height="176">
+                            <img src="assets/Noodles_Manchurian.webp" alt="burger"
+                                class="h-44 rounded-t-xl w-full object-cover hover:scale-105 transition-all duration-500"
+                                height="176" loading="lazy">
                             <div class="content flex flex-col p-3">
                                 <div class="flex flex-row justify-between items-center">
-                                    <span class="font-semibold foodname">Heirloom Avocado Toast</span>
-                                    <span class="font-semibold text-orange font-poppins text-sm ">$<span
-                                            class="foodprice">11.00</span></span>
+                                    <span class="font-semibold foodname">Noodles Manchurian</span>
+                                    <span class="font-semibold text-orange font-poppins text-sm ">₹<span
+                                            class="foodprice">279</span></span>
                                 </div>
-                                <div
-                                    class="flex flex-row items-center font-poppins gap-3 mt-2 border-b pb-3 border-orange">
+                                <div class="flex flex-row items-center font-poppins gap-3 mt-2">
                                     <div class="time flex items-center gap-1">
                                         <i class="fa-solid fa-clock text-[#747373] font-semibold"></i>
                                         <span class="text-xs text-[#747373] font-medium">15-20 min</span>
@@ -653,6 +649,8 @@
                                         <span class="text-xs text-[#747373] font-medium">Mid</span>
                                     </div>
                                 </div>
+                                <p class="text-ink mt-3.5 leading-5 border-b pb-2.5 border-orange ">Soft roomali roti
+                                    stuffed with smoky paneer, crisp veggies, and refreshing mint mayonnaise.</p>
                             </div>
                             <div class="flex flex-row justify-between items-center p-3">
                                 <div class="starIcon flex flex-row items-center gap-1.5">
@@ -661,22 +659,22 @@
                                 </div>
 
                                 <button
-                                    class="bg-slate-900 text-white font-poppins addBtn px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
-                                        class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
+                                    class="bg-orange text-white font-poppins addBtn px-4 py-2 rounded-full cursor-pointer active:bg-amber-800"
+                                    data-id="10"><i class="fa-solid fa-plus"></i> <span
+                                        class="font-medium">Add</span></button>
                             </div>
                         </div>
                         <div class="card flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
-                            <img src="assets/kadai-paneer-recipe.webp" alt="burger"
-                                class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
-                                height="176">
+                            <img src="assets/White_Sauce_Creamy_Pasta.webp" alt="burger"
+                                class="h-44 rounded-t-xl w-full object-cover hover:scale-105 transition-all duration-500"
+                                height="176" loading="lazy">
                             <div class="content flex flex-col p-3">
                                 <div class="flex flex-row justify-between items-center">
-                                    <span class="font-semibold foodname">Slow Butter Curry</span>
-                                    <span class="font-semibold text-orange font-poppins text-sm ">$<span
-                                            class="foodprice">16.00</span></span>
+                                    <span class="font-semibold foodname">White Sauce Creamy Pasta</span>
+                                    <span class="font-semibold text-orange font-poppins text-sm ">₹<span
+                                            class="foodprice">299</span></span>
                                 </div>
-                                <div
-                                    class="flex flex-row items-center font-poppins gap-3 mt-2 border-b pb-3 border-orange">
+                                <div class="flex flex-row items-center font-poppins gap-3 mt-2">
                                     <div class="time flex items-center gap-1">
                                         <i class="fa-solid fa-clock text-[#747373] font-semibold"></i>
                                         <span class="text-xs text-[#747373] font-medium">20-25 min</span>
@@ -686,6 +684,8 @@
                                         <span class="text-xs text-[#747373] font-medium">Veg</span>
                                     </div>
                                 </div>
+                                <p class="text-ink mt-3.5 leading-5 border-b pb-2.5 border-orange ">Penne pasta tossed
+                                    in rich garlic white sauce with sweet corn, bell peppers, and mixed herbs.</p>
                             </div>
                             <div class="flex flex-row justify-between items-center p-3">
                                 <div class="starIcon flex flex-row items-center gap-1.5">
@@ -694,22 +694,22 @@
                                 </div>
 
                                 <button
-                                    class="bg-slate-900 text-white font-poppins addBtn px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
-                                        class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
+                                    class="bg-orange text-white font-poppins addBtn px-4 py-2 rounded-full cursor-pointer active:bg-amber-800"
+                                    data-id="11"><i class="fa-solid fa-plus"></i> <span
+                                        class="font-medium">Add</span></button>
                             </div>
                         </div>
                         <div class="card flex flex-col h-auto w-auto min-w-64 rounded-xl bg-white overflow-hidden">
-                            <img src="assets/instant-pot-dal-rice-recipe.webp" alt="burger"
-                                class="h-44 rounded-xl object-cover hover:scale-105 transition-all duration-500"
-                                height="176">
+                            <img src="assets/Chole_Bhature_Combo.webp" alt="burger"
+                                class="h-44 rounded-t-xl w-full object-cover hover:scale-105 transition-all duration-500"
+                                height="176" loading="lazy">
                             <div class="content flex flex-col p-3">
                                 <div class="flex flex-row justify-between items-center">
-                                    <span class="font-semibold foodname">Wood-Fired Margherita</span>
-                                    <span class="font-semibold text-orange font-poppins text-sm">$<span
-                                            class="foodprice">13.50</span></span>
+                                    <span class="font-semibold foodname">Chole Bhature Combo</span>
+                                    <span class="font-semibold text-orange font-poppins text-sm">₹<span
+                                            class="foodprice">229</span></span>
                                 </div>
-                                <div
-                                    class="flex flex-row items-center font-poppins gap-3 mt-2 border-b pb-3 border-orange">
+                                <div class="flex flex-row items-center font-poppins gap-3 mt-2">
                                     <div class="time flex items-center gap-1">
                                         <i class="fa-solid fa-clock text-[#747373] font-semibold"></i>
                                         <span class="text-xs text-[#747373] font-medium">10-15 min</span>
@@ -719,6 +719,8 @@
                                         <span class="text-xs text-[#747373] font-medium">Mid</span>
                                     </div>
                                 </div>
+                                <p class="text-ink mt-3.5 leading-5 border-b pb-2.5 border-orange ">Spicy Punjabi chole
+                                    served with two hot, fluffy bhature, sliced onions, and tangy pickle.</p>
                             </div>
                             <div class="flex flex-row justify-between items-center p-3">
                                 <div class="starIcon flex flex-row items-center gap-1.5">
@@ -727,21 +729,23 @@
                                 </div>
 
                                 <button
-                                    class="bg-slate-900 text-white font-poppins addBtn px-4 py-2 rounded-full cursor-pointer active:bg-black"><i
-                                        class="fa-solid fa-plus"></i> <span class="font-medium">Add</span></button>
+                                    class="bg-orange text-white font-poppins addBtn px-4 py-2 rounded-full cursor-pointer active:bg-amber-800"
+                                    data-id="12"><i class="fa-solid fa-plus"></i> <span
+                                        class="font-medium">Add</span></button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </section>
         <div class="container">
-            <section id="recommend" class="bg-[#f8eacf] rounded-4xl border border-whiteborder mb-25">
+            <section id="recommend" class="bg-[#f8eacf] rounded-4xl border border-whiteborder mb-25 max-w-300">
                 <div class="flex justify-between flex-col lg:flex-row gap-12 px-4 md:px-7">
                     <!-- Left -->
                     <div class="image">
                         <img src="assets/male-chef-kitchen-cooking-dish-frying-pan.webp" alt="malechefkitchen"
                             class="lg:h-105 h-72 w-full lg:w-120 object-cover rounded-2xl overflow-hidden" height="900"
-                            width="1200">
+                            width="1200" loading="lazy" decoding="async">
                     </div>
                     <!-- Right -->
                     <div class="flex flex-col flex-1">
@@ -761,7 +765,7 @@
                             </div>
                             <div class="flex flex-col font-poppins">
                                 <span class="font-bold text-lg">Wood-Fired Short Rib</span>
-                                <span class="-mt-0.5 text-sm text-ink ">This week's special- $22.00</span>
+                                <span class="leading-5 mt-2 text-sm text-ink ">This week's special- ₹22.00</span>
                             </div>
                         </div>
                     </div>
@@ -804,7 +808,7 @@
                                 set the table Tasted like a sit-down kitchen."</p>
                             <div class="flex flex-row items-center gap-2 mt-16">
                                 <img src="assets/Lucky_Logo.webp" alt="luckylogo" class="rounded-full h-12 w-12"
-                                    height="48" width="48">
+                                    height="48" width="48" loading="lazy">
                                 <div class="flex flex-col font-poppins">
                                     <span class="text-slate-950 font-medium">Mali Lucky</span>
                                     <span class="text-ink -mt-0.5 text-xs">Surat District</span>
@@ -826,7 +830,7 @@
                                 are generous, packaging holds up."</p>
                             <div class="flex flex-row items-center gap-2 mt-16">
                                 <img src="assets/Lucky_Logo.webp" alt="luckylogo" class="rounded-full h-12 w-12"
-                                    height="48" width="48">
+                                    height="48" width="48" loading="lazy">
                                 <div class="flex flex-col font-poppins">
                                     <span class="text-slate-950 font-medium">Mali Lucky</span>
                                     <span class="text-ink -mt-0.5 text-xs">Surat District</span>
@@ -847,7 +851,7 @@
                                 burger converted my whole office."</p>
                             <div class="flex flex-row items-center gap-2 mt-16">
                                 <img src="assets/Lucky_Logo.webp" alt="luckylogo" class="rounded-full h-12 w-12"
-                                    height="48" width="48">
+                                    height="48" width="48" loading="lazy">
                                 <div class="flex flex-col font-poppins">
                                     <span class="text-slate-950 font-medium">Mali Lucky</span>
                                     <span class="text-ink -mt-0.5 text-xs">Surat District</span>
@@ -1035,7 +1039,7 @@
                         </div>
                         <div class="flex-1">
                             <img src="assets/ember.webp" alt="ember"
-                                class="lg:h-90 h-60 w-full lg:w-120 object-cover rounded-2xl" height="900" width="1200">
+                                class="lg:h-90 h-60 w-full lg:w-120 object-cover rounded-2xl" height="900" width="1200" loading="lazy">
                         </div>
                     </div>
                 </div>
@@ -1143,13 +1147,14 @@
                 <div class="font-light flex flex-col items-center md:mt-0 mt-5">
                     <span>Cooked fresh, delivered honest.</span>
                     <p class="text-right">Made by <a href="https://github.com/iamluckymali" target="_blank"
-                            class="hover:text-orange text-white font-quicksand font-medium">Lucky Mali</a></p>
+                            class="hover:underline text-white font-quicksand font-semibold">Lucky Mali</a></p>
                 </div>
             </div>
         </div>
     </footer>
+
     <script src="index.js" defer></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </body>
 
 </html>
